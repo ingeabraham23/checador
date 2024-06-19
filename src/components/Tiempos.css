@@ -1,0 +1,509 @@
+/* Tiempos.css */
+
+/* Estilos generales */
+body {
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2px;
+}
+
+/* FORMULARIO FORMULARIO FORMULARIO FORMULARIO FORMULARIO FORMULARIO FORMULARIO FORMULARIO */
+
+.form-container {
+  position: fixed; /* Fijo en la pantalla */
+  width: 80%;
+  top: 20%; /* Centrando verticalmente */
+  left: 50%; /* Centrando horizontalmente */
+  transform: translate(-50%, -50%); /* Ajustando el centrado */
+  z-index: 1000; /* Alto índice para estar al frente */
+  background-color: white; /* Fondo blanco */
+  padding: 20px; /* Espaciado interno */
+  border: 1px solid #ccc; /* Borde */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+  border-radius: 8px; /* Esquinas redondeadas */
+}
+
+.save-button-rojo {
+  background-color: #ca1212; /* Cambia el color de fondo */
+  color: white; /* Cambia el color del texto */
+  padding: 10px; /* Aumenta el espacio alrededor del texto */
+  border: 1px solid #000; /* Elimina el borde */
+  font-size: 25px;
+  border-radius: 5px; /* Agrega bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+  transition: background-color 0.3s ease; /* Agrega una transición */
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.save-button-r3 {
+  background-color: #ffffff; /* Cambia el color de fondo */
+  color: rgb(0, 0, 0); /* Cambia el color del texto */
+  padding: 10px; /* Aumenta el espacio alrededor del texto */
+  border: 1px solid #000; /* Elimina el borde */
+  font-size: 25px;
+  border-radius: 5px; /* Agrega bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+  transition: background-color 0.3s ease; /* Agrega una transición */
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.cancel-button {
+  background-color: #000000; /* Cambia el color de fondo */
+  color: rgb(255, 255, 255); /* Cambia el color del texto */
+  padding: 10px; /* Aumenta el espacio alrededor del texto */
+  border: 1px solid #000; /* Elimina el borde */
+  font-size: 10px;
+  border-radius: 5px; /* Agrega bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+  transition: background-color 0.3s ease; /* Agrega una transición */
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+
+.add-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.styled-input {
+  width: 80%;
+  max-width: 400px; /* Controla el tamaño máximo del campo */
+  padding: 10px;
+  margin: 0 auto; /* Centra el campo horizontalmente */
+  display: block;
+  font-size: 25px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 5px;
+}
+
+table {
+  margin-top: 3px;
+  width: 100%;
+  border-collapse: separate;
+  padding: 1px;
+  text-align: center;
+  border: 2px solid #000000;
+  font-size: 18px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* RUTAS RUTAS RUTAS RUTAS RUTAS RUTAS RUTAS RUTAS RUTAS RUTAS RUTAS RUTAS RUTAS RUTAS RUTAS RUTAS */
+
+.white-bg {
+  width: 50px;
+  background-color: #ffffff;
+  text-align: center;
+  color: #000000;
+  border: 1px solid #000; /* Elimina el borde */
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.red-bg {
+  width: 50px;
+  background-color: #ff0000;
+  text-align: center;
+  color: #ffffff;
+  border: 1px solid #000; /* Elimina el borde */
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.celda-talzintan {
+  background-color: #00ff15;
+  padding: 0px;
+}
+
+.button-se-lleva-talzintan {
+  width: 80px;
+  background-color: #00ff15;
+  text-align: center;
+  color: #ffffff;
+  border: 1px solid #000; /* Elimina el borde */
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.celda-loma {
+  background-color: #adf7b3;
+  padding: 0px;
+}
+
+.button-se-lleva-loma {
+  width: 80px;
+  background-color: #adf7b3;
+  text-align: center;
+  color: #ffffff;
+  border: 1px solid #000; /* Elimina el borde */
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.celda-tezotepec {
+  background-color: #eb9d36;
+  padding: 0px;
+}
+
+.button-se-lleva-tezotepec {
+  width: 80px;
+  background-color: #eb9d36;
+  text-align: center;
+  color: #ffffff;
+  border: 1px solid #000; /* Elimina el borde */
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.celda-calicapan {
+  background-color: #00c3ff;
+  padding: 0px;
+}
+
+.button-se-lleva-calicapan {
+  width: 80px;
+  background-color: #00c3ff;
+  text-align: center;
+  color: #ffffff;
+  border: 1px solid #000; /* Elimina el borde */
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.celda-sosa {
+  background-color: #ea00ff;
+  padding: 0px;
+}
+
+.button-se-lleva-sosa {
+  width: 80px;
+  background-color: #ea00ff;
+  text-align: center;
+  color: #ffffff;
+  border: 1px solid #000; /* Elimina el borde */
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.celda-sanisidro {
+  background-color: #9c9c9c;
+  padding: 0px;
+}
+
+.button-se-lleva-sanisidro {
+  width: 80px;
+  background-color: #9c9c9c;
+  text-align: center;
+  color: #ffffff;
+  border: 1px solid #000; /* Elimina el borde */
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.celda-tacopan {
+  background-color: #fffb00;
+  padding: 0px;
+  color: #000;
+}
+
+.button-se-lleva-tacopan {
+  width: 80px;
+  background-color: #fffb00;
+  text-align: center;
+  color: #000000;
+  border: 1px solid #000; /* Elimina el borde */
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.celda-calanorte {
+  background-color: #006100;
+  padding: 0px;
+}
+
+.button-se-lleva-calanorte {
+  width: 80px;
+  background-color: #006100;
+  text-align: center;
+  color: #ffffff;
+  border: 1px solid #000; /* Elimina el borde */
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.celda-pajaco {
+  background-color: #ff0000;
+  padding: 0px;
+}
+
+.button-se-lleva-pajaco {
+  width: 80px;
+  background-color: #ff0000;
+  text-align: center;
+  color: #ffffff;
+  border: 1px solid #000; /* Elimina el borde */
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.celda-analco {
+  background-color: #0051ff;
+  padding: 0px;
+}
+
+.button-se-lleva-analco {
+  width: 80px;
+  background-color: #0051ff;
+  text-align: center;
+  color: #ffffff;
+  border: 1px solid #000; /* Elimina el borde */
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.celda-analco {
+  background-color: #0051ff;
+  padding: 0px;
+}
+
+.button-se-lleva-analco {
+  width: 80px;
+  background-color: #0051ff;
+  text-align: center;
+  color: #ffffff;
+  border: 1px solid #000; /* Elimina el borde */
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.celda-yopi {
+  background-color: #9350ff;
+  padding: 0px;
+}
+
+.button-se-lleva-yopi {
+  width: 80px;
+  background-color: #9350ff;
+  text-align: center;
+  color: #ffffff;
+  border: 1px solid #000; /* Elimina el borde */
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.celda-yopiescuela {
+  background-color: #6200ff;
+  padding: 0px;
+}
+
+.button-se-lleva-yopiescuela {
+  width: 80px;
+  background-color: #6200ff;
+  text-align: center;
+  color: #ffffff;
+  border: 1px solid #000; /* Elimina el borde */
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.celda-tequimila {
+  background-color: #a6ff00;
+  padding: 0px;
+  color: #000;
+}
+
+.button-se-lleva-tequimila {
+  width: 80px;
+  background-color: #a6ff00;
+  text-align: center;
+  color: #000000;
+  border: 1px solid #000; /* Elimina el borde */
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.celda-otra {
+  background-color: #ffffff;
+  padding: 0px;
+  color: #000;
+}
+
+.button-se-lleva-otra {
+  width: 80px;
+  background-color: #ffffff;
+  text-align: center;
+  color: #000000;
+  border: 1px solid #000; /* Elimina el borde */
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+
+.boton-cronometro {
+  width: 80px;
+  background-color: #000000;
+  text-align: center;
+  color: #ffffff;
+  border: 1px solid #000; /* Elimina el borde */
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+.rojo-rojo {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: red;
+  display: inline-block;
+  margin: 4px;
+  border: 1px solid black;
+  padding: 1px;
+  text-align: center;
+  line-height: 15px;
+  font-size: 10px;
+}
+
+
+.rojo-texto {
+  font-size: 10px;
+  display: inline-block;
+}
+
+.rojo-texto-negro {
+  font-size: 10px;
+  display: inline-block;
+  color: #000;
+}
+
+.texto-chico {
+  font-size: 10px;
+  margin: 0px;
+  padding: 0px;
+  font-size: 15px;
+}
+
+.texto-chico-negro {
+  font-size: 10px;
+  margin: 0px;
+  padding: 0px;
+  color: #000;
+  font-size: 15px;
+}
+
+.ruta-display {
+  margin-top: 0px;
+  padding: 2px;
+  font-weight: bold;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #9dff00;
+  color: #000000;
+  font-size: 40px;
+}

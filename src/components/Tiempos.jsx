@@ -1,6 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect, useRef } from "react";
 //import Dexie from 'dexie';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./Tiempos.css"; // Asegúrate de tener el archivo CSS para los estilos
 import db from "../db";
 
@@ -10,6 +12,8 @@ const UnidadesComponent = () => {
   const [numeroUnidad, setNumeroUnidad] = useState("");
   const [isFormVisible, setFormVisible] = useState(false);
   const inputRef = useRef(null);
+  const [numerosTalzintan, setnumerosTalzintan] = useState([]);
+  const [mostrarListaTalzintan, setMostrarListaTalzintan] = useState(false);
 
   // Estados para todas las unidades
   const [ultimaUnidadTalzintan, setUltimaUnidadTalzintan] = useState(null);
@@ -41,10 +45,11 @@ const UnidadesComponent = () => {
   const [penultimaUnidadAnalco, setPenultimaUnidadAnalco] = useState(null);
   const [ultimaUnidadYopi, setUltimaUnidadYopi] = useState(null);
   const [penultimaUnidadYopi, setPenultimaUnidadYopi] = useState(null);
-  const [ultimaUnidadYopiEscuela, setUltimaUnidadYopiEscuela] = useState(null);
-  const [penultimaUnidadYopiEscuela, setPenultimaUnidadYopiEscuela] = useState(null);
   const [ultimaUnidadTequimila, setUltimaUnidadTequimila] = useState(null);
-  const [penultimaUnidadTequimila, setPenultimaUnidadTequimila] = useState(null);
+  const [penultimaUnidadTequimila, setPenultimaUnidadTequimila] =
+    useState(null);
+  const [ultimaUnidadQuinta, setUltimaUnidadQuinta] = useState(null);
+  const [penultimaUnidadQuinta, setPenultimaUnidadQuinta] = useState(null);
   const [ultimaUnidadOtra, setUltimaUnidadOtra] = useState(null);
   const [penultimaUnidadOtra, setPenultimaUnidadOtra] = useState(null);
 
@@ -72,7 +77,6 @@ const UnidadesComponent = () => {
     useState(null);
   const [penultimaUnidadRojaCalicapan, setPenultimaUnidadRojaCalicapan] =
     useState(null);
-    
 
   // Estados para tiempos transcurridos
   const [tiempoTranscurridoTalzintan, setTiempoTranscurridoTalzintan] =
@@ -92,8 +96,9 @@ const UnidadesComponent = () => {
   const [tiempoTranscurridoPajaco, setTiempoTranscurridoPajaco] = useState(0);
   const [tiempoTranscurridoAnalco, setTiempoTranscurridoAnalco] = useState(0);
   const [tiempoTranscurridoYopi, setTiempoTranscurridoYopi] = useState(0);
-  const [tiempoTranscurridoYopiEscuela, setTiempoTranscurridoYopiEscuela] = useState(0);
-  const [tiempoTranscurridoTequimila, setTiempoTranscurridoTequimila] = useState(0);
+  const [tiempoTranscurridoTequimila, setTiempoTranscurridoTequimila] =
+    useState(0);
+  const [tiempoTranscurridoQuinta, setTiempoTranscurridoQuinta] = useState(0);
   const [tiempoTranscurridoOtra, setTiempoTranscurridoOtra] = useState(0);
 
   // Estados para tiempos transcurridos ROJOS ROJOS ROJOS
@@ -122,8 +127,8 @@ const UnidadesComponent = () => {
   const [diferenciaPajaco, setDiferenciaPajaco] = useState(0);
   const [diferenciaAnalco, setDiferenciaAnalco] = useState(0);
   const [diferenciaYopi, setDiferenciaYopi] = useState(0);
-  const [diferenciaYopiEscuela, setDiferenciaYopiEscuela] = useState(0);
   const [diferenciaTequimila, setDiferenciaTequimila] = useState(0);
+  const [diferenciaQuinta, setDiferenciaQuinta] = useState(0);
   const [diferenciaOtra, setDiferenciaOtra] = useState(0);
 
   // Estados para diferencias de tiempo entre último y penúltimo registro ROJOS ROJOS ROJOS
@@ -146,8 +151,8 @@ const UnidadesComponent = () => {
       const unidadesPajaco = await obtenerUnidades("pajaco");
       const unidadesAnalco = await obtenerUnidades("analco");
       const unidadesYopi = await obtenerUnidades("yopi");
-      const unidadesYopiEscuela = await obtenerUnidades("yopi escuela");
       const unidadesTequimila = await obtenerUnidades("tequimila");
+      const unidadesQuinta = await obtenerUnidades("quinta");
       const unidadesOtra = await obtenerUnidades("otra");
 
       const unidadesRojaTalzintan = await obtenerUnidades("talzintan", "rojo");
@@ -238,18 +243,18 @@ const UnidadesComponent = () => {
         setDiferenciaYopi
       );
       actualizarEstadoUnidades(
-        unidadesYopiEscuela,
-        setUltimaUnidadYopiEscuela,
-        setPenultimaUnidadYopiEscuela,
-        setTiempoTranscurridoYopiEscuela,
-        setDiferenciaYopiEscuela
-      );
-      actualizarEstadoUnidades(
         unidadesTequimila,
         setUltimaUnidadTequimila,
         setPenultimaUnidadTequimila,
         setTiempoTranscurridoTequimila,
         setDiferenciaTequimila
+      );
+      actualizarEstadoUnidades(
+        unidadesQuinta,
+        setUltimaUnidadQuinta,
+        setPenultimaUnidadQuinta,
+        setTiempoTranscurridoQuinta,
+        setDiferenciaQuinta
       );
       actualizarEstadoUnidades(
         unidadesOtra,
@@ -259,7 +264,7 @@ const UnidadesComponent = () => {
         setDiferenciaOtra
       );
 
-      // Unidades de tipo rojo 
+      // Unidades de tipo rojo
       actualizarEstadoUnidades(
         unidadesRojaTalzintan,
         setUltimaUnidadRojaTalzintan,
@@ -295,18 +300,92 @@ const UnidadesComponent = () => {
         setTiempoTranscurridoRojaSanIsidro,
         setDiferenciaRojaSanIsidro
       );
+
+      // Verificar si el tiempo transcurrido es de 6 minutos (360 segundos)
+      if (
+        tiempoTranscurridoTalzintan == 360 &&
+        ultimaUnidadTalzintan.tipo == "rojo"
+      ) {
+        toast.success(`¡6 Minutos libres del rojo Talzintan!`);
+      }
+
+      if (
+        tiempoTranscurridoTezotepec == 360 &&
+        ultimaUnidadTezotepec.tipo == "rojo"
+      ) {
+        toast.warn(`¡6 Minutos libres del rojo Tezotepec!`);
+      }
+
+      if (
+        tiempoTranscurridoCalicapan == 360 &&
+        ultimaUnidadCalicapan.tipo == "rojo"
+      ) {
+        toast.info(`¡6 Minutos libres del rojo Calicapan!`);
+      }
+
+      if (
+        tiempoTranscurridoSosaEscuela == 360 &&
+        ultimaUnidadSosaEscuela.tipo == "rojo"
+      ) {
+        toast.error(`¡6 Minutos libres del rojo Sosa Escuela!`);
+      }
+
+      if (
+        tiempoTranscurridoSanIsidro == 360 &&
+        ultimaUnidadSanIsidro.tipo == "rojo"
+      ) {
+        toast(`¡6 Minutos libres del rojo San Isidro!`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+      }
+
     };
 
     const intervalo = setInterval(actualizarCronometros, 1000);
     return () => clearInterval(intervalo);
-  }, []);
+  }, [
+    tiempoTranscurridoCalicapan,
+    tiempoTranscurridoSanIsidro,
+    tiempoTranscurridoSosaEscuela,
+    tiempoTranscurridoTalzintan,
+    tiempoTranscurridoTezotepec,
+    ultimaUnidadTalzintan,
+    ultimaUnidadTezotepec,
+    ultimaUnidadCalicapan,
+    ultimaUnidadSosaEscuela,
+    ultimaUnidadSanIsidro,
+  ]);
 
   const obtenerUnidades = async (ruta, tipo) => {
+    let unidades;
     if (tipo) {
-      return await db.unidades.where({ ruta, tipo }).toArray();
+      unidades = await db.unidades
+        .where({ ruta, tipo })
+        .reverse() // Ordenar en orden descendente
+        .limit(7) // Limitar a los últimos 7 registros
+        .toArray();
     } else {
-      return await db.unidades.where("ruta").equals(ruta).toArray();
+      unidades = await db.unidades
+        .where("ruta")
+        .equals(ruta)
+        .reverse() // Ordenar en orden descendente
+        .limit(7) // Limitar a los últimos 7 registros
+        .toArray();
     }
+  
+    // Comprobación de unidades
+    if (!unidades || unidades.length === 0) {
+      return []; // No existen unidades
+    }
+  
+    return unidades.reverse(); // Revertir el orden para obtener los últimos 7 en orden cronológico
   };
 
   const actualizarEstadoUnidades = (
@@ -380,6 +459,26 @@ const UnidadesComponent = () => {
     return `${minutos < 10 ? "0" : ""}${minutos}:${
       segundosRestantes < 10 ? "0" : ""
     }${segundosRestantes}`;
+  };
+
+  const handleObtenerUnidadesTalzintan = async () => {
+    const numerosTalzintan = await obtenerUnidades("talzintan");
+    setnumerosTalzintan(numerosTalzintan);
+    setMostrarListaTalzintan(true)
+  };
+
+  const handleCloseListaTalzintan = () => {
+    setMostrarListaTalzintan(false);
+  };
+
+  const formatHoraRegistro = (horaRegistro) => {
+    const date = new Date(horaRegistro);
+    let hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    return `${hours}:${minutes} ${ampm}`;
   };
 
   return (
@@ -475,7 +574,7 @@ const UnidadesComponent = () => {
                         penultimaUnidadTalzintan.tipo === "blanco"
                           ? "white-bg"
                           : "red-bg"
-                      }`}
+                      }`} onClick={handleObtenerUnidadesTalzintan}
                     >
                       {penultimaUnidadTalzintan.numeroUnidad}
                     </button>
@@ -876,6 +975,100 @@ const UnidadesComponent = () => {
             )}
           </tr>
 
+          {/*FILA TEQUIMILA  FILA TEQUIMILA  FILA TEQUIMILA  FILA TEQUIMILA  FILA TEQUIMILA  */}
+          <tr>
+            <td></td>
+            <td className="celda-tequimila">
+              <button
+                className="boton-cronometro"
+                onClick={() => {
+                  setRuta("tequimila");
+                  setFormVisible(true);
+                }}
+              >
+                {formatoTiempo(tiempoTranscurridoTequimila)}
+              </button>
+              <br></br> <span className="texto-chico">Tequimila</span>
+            </td>
+            {ultimaUnidadTequimila && (
+              <td className="celda-tequimila">
+                {" "}
+                <button
+                  className={`${
+                    ultimaUnidadTequimila.tipo === "blanco"
+                      ? "white-bg"
+                      : "red-bg"
+                  }`}
+                >
+                  {ultimaUnidadTequimila.numeroUnidad}
+                </button>{" "}
+                {penultimaUnidadTequimila && (
+                  <>
+                    <button className="button-se-lleva-tequimila">
+                      {formatoTiempo(diferenciaTequimila)}
+                    </button>
+                    <button
+                      className={`${
+                        penultimaUnidadTequimila.tipo === "blanco"
+                          ? "white-bg"
+                          : "red-bg"
+                      }`}
+                    >
+                      {penultimaUnidadTequimila.numeroUnidad}
+                    </button>
+                    <br></br>
+                  </>
+                )}
+              </td>
+            )}
+          </tr>
+
+          {/*FILA QUINTA  FILA QUINTA  FILA QUINTA  FILA QUINTA  FILA QUINTA  FILA QUINTA  */}
+          <tr>
+            <td></td>
+            <td className="celda-quinta">
+              <button
+                className="boton-cronometro"
+                onClick={() => {
+                  setRuta("quinta");
+                  setFormVisible(true);
+                }}
+              >
+                {formatoTiempo(tiempoTranscurridoQuinta)}
+              </button>
+              <br></br> <span className="texto-chico">Seccion 5ta</span>
+            </td>
+            {ultimaUnidadQuinta && (
+              <td className="celda-quinta">
+                {" "}
+                <button
+                  className={`${
+                    ultimaUnidadQuinta.tipo === "blanco" ? "white-bg" : "red-bg"
+                  }`}
+                >
+                  {ultimaUnidadQuinta.numeroUnidad}
+                </button>{" "}
+                {penultimaUnidadQuinta && (
+                  <>
+                    <button className="button-se-lleva-quinta">
+                      {formatoTiempo(diferenciaQuinta)}
+                    </button>
+                    <button
+                      className={`${
+                        penultimaUnidadQuinta.tipo === "blanco"
+                          ? "white-bg"
+                          : "red-bg"
+                      }`}
+                    >
+                      {penultimaUnidadQuinta.numeroUnidad}
+                    </button>
+                    <br></br>
+                  </>
+                )}
+              </td>
+            )}
+          </tr>
+
           {/*FILA CALANORTE  FILA CALANORTE  FILA CALANORTE  FILA CALANORTE  FILA CALANORTE    */}
           <tr>
             <td></td>
@@ -1029,7 +1222,7 @@ const UnidadesComponent = () => {
               >
                 {formatoTiempo(tiempoTranscurridoYopi)}
               </button>
-              <br></br> <span className="texto-chico">Yopi</span>
+              <br></br> <span className="texto-chico">Yopi / Yopi E.</span>
             </td>
             {ultimaUnidadYopi && (
               <td className="celda-yopi">
@@ -1054,98 +1247,6 @@ const UnidadesComponent = () => {
                       }`}
                     >
                       {penultimaUnidadYopi.numeroUnidad}
-                    </button>
-                    <br></br>
-                  </>
-                )}
-              </td>
-            )}
-          </tr>
-
-          {/*FILA YOPI ESCUELA  FILA YOPI ESCUELA  FILA YOPI ESCUELA  FILA YOPI ESCUELA  */}
-          <tr>
-            <td></td>
-            <td className="celda-yopiescuela">
-              <button
-                className="boton-cronometro"
-                onClick={() => {
-                  setRuta("yopi escuela");
-                  setFormVisible(true);
-                }}
-              >
-                {formatoTiempo(tiempoTranscurridoYopiEscuela)}
-              </button>
-              <br></br> <span className="texto-chico">Yopi Escuela</span>
-            </td>
-            {ultimaUnidadYopiEscuela && (
-              <td className="celda-yopiescuela">
-                {" "}
-                <button
-                  className={`${
-                    ultimaUnidadYopiEscuela.tipo === "blanco" ? "white-bg" : "red-bg"
-                  }`}
-                >
-                  {ultimaUnidadYopiEscuela.numeroUnidad}
-                </button>{" "}
-                {penultimaUnidadYopiEscuela && (
-                  <>
-                    <button className="button-se-lleva-yopiescuela">
-                      {formatoTiempo(diferenciaYopiEscuela)}
-                    </button>
-                    <button
-                      className={`${
-                        penultimaUnidadYopiEscuela.tipo === "blanco"
-                          ? "white-bg"
-                          : "red-bg"
-                      }`}
-                    >
-                      {penultimaUnidadYopiEscuela.numeroUnidad}
-                    </button>
-                    <br></br>
-                  </>
-                )}
-              </td>
-            )}
-          </tr>
-
-          {/*FILA TEQUIMILA  FILA TEQUIMILA  FILA TEQUIMILA  FILA TEQUIMILA  FILA TEQUIMILA  */}
-          <tr>
-            <td></td>
-            <td className="celda-tequimila">
-              <button
-                className="boton-cronometro"
-                onClick={() => {
-                  setRuta("tequimila");
-                  setFormVisible(true);
-                }}
-              >
-                {formatoTiempo(tiempoTranscurridoTequimila)}
-              </button>
-              <br></br> <span className="texto-chico">Tequimila</span>
-            </td>
-            {ultimaUnidadTequimila && (
-              <td className="celda-tequimila">
-                {" "}
-                <button
-                  className={`${
-                    ultimaUnidadTequimila.tipo === "blanco" ? "white-bg" : "red-bg"
-                  }`}
-                >
-                  {ultimaUnidadTequimila.numeroUnidad}
-                </button>{" "}
-                {penultimaUnidadTequimila && (
-                  <>
-                    <button className="button-se-lleva-tequimila">
-                      {formatoTiempo(diferenciaTequimila)}
-                    </button>
-                    <button
-                      className={`${
-                        penultimaUnidadTequimila.tipo === "blanco"
-                          ? "white-bg"
-                          : "red-bg"
-                      }`}
-                    >
-                      {penultimaUnidadTequimila.numeroUnidad}
                     </button>
                     <br></br>
                   </>
@@ -1199,9 +1300,29 @@ const UnidadesComponent = () => {
               </td>
             )}
           </tr>
-
         </tbody>
       </table>
+      <div>
+      {mostrarListaTalzintan && (
+        <div className="floating-list-talzintan">
+          
+          <button className="close-button" onClick={handleCloseListaTalzintan}>❌ Cerrar</button>
+          Talzintan
+          {numerosTalzintan.slice().reverse().map((unidad, index) => (
+            <>
+            <button
+              key={index}
+              className={`unidad-button ${unidad.tipo === 'rojo' ? 'rojo' : ''}`}
+            >
+              {unidad.numeroUnidad}
+            </button>
+            {formatHoraRegistro(unidad.horaRegistro)}
+            <hr></hr>
+            </>
+          ))}
+        </div>
+      )}
+    </div>
     </div>
   );
 };

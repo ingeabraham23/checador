@@ -6,6 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 import "./Tiempos.css"; // Asegúrate de tener el archivo CSS para los estilos
 import db from "../db";
 
+import html2canvas from "html2canvas";
+
 const UnidadesComponent = () => {
   const [ruta, setRuta] = useState("");
   const [tipo, setTipo] = useState("");
@@ -14,6 +16,10 @@ const UnidadesComponent = () => {
   const inputRef = useRef(null);
   const [numerosTalzintan, setnumerosTalzintan] = useState([]);
   const [mostrarListaTalzintan, setMostrarListaTalzintan] = useState(false);
+  const [numerosLoma, setnumerosLoma] = useState([]);
+  const [mostrarListaLoma, setMostrarListaLoma] = useState(false);
+  const [numerosTezotepec, setnumerosTezotepec] = useState([]);
+  const [mostrarListaTezotepec, setMostrarListaTezotepec] = useState(false);
 
   // Estados para todas las unidades
   const [ultimaUnidadTalzintan, setUltimaUnidadTalzintan] = useState(null);
@@ -137,6 +143,10 @@ const UnidadesComponent = () => {
   const [diferenciaRojaCalicapan, setDiferenciaRojaCalicapan] = useState(0);
   const [diferenciaRojaSosaEscuela, setDiferenciaRojaSosaEscuela] = useState(0);
   const [diferenciaRojaSanIsidro, setDiferenciaRojaSanIsidro] = useState(0);
+
+  const tablaTalzintanRef = useRef(null);
+  const tablaLomaRef = useRef(null);
+  const tablaTezotepecRef = useRef(null);
 
   useEffect(() => {
     const actualizarCronometros = async () => {
@@ -343,9 +353,8 @@ const UnidadesComponent = () => {
           draggable: true,
           progress: undefined,
           theme: "light",
-          });
+        });
       }
-
     };
 
     const intervalo = setInterval(actualizarCronometros, 1000);
@@ -369,22 +378,22 @@ const UnidadesComponent = () => {
       unidades = await db.unidades
         .where({ ruta, tipo })
         .reverse() // Ordenar en orden descendente
-        .limit(7) // Limitar a los últimos 7 registros
+        .limit(10) // Limitar a los últimos 7 registros
         .toArray();
     } else {
       unidades = await db.unidades
         .where("ruta")
         .equals(ruta)
         .reverse() // Ordenar en orden descendente
-        .limit(7) // Limitar a los últimos 7 registros
+        .limit(10) // Limitar a los últimos 7 registros
         .toArray();
     }
-  
+
     // Comprobación de unidades
     if (!unidades || unidades.length === 0) {
       return []; // No existen unidades
     }
-  
+
     return unidades.reverse(); // Revertir el orden para obtener los últimos 7 en orden cronológico
   };
 
@@ -464,21 +473,226 @@ const UnidadesComponent = () => {
   const handleObtenerUnidadesTalzintan = async () => {
     const numerosTalzintan = await obtenerUnidades("talzintan");
     setnumerosTalzintan(numerosTalzintan);
-    setMostrarListaTalzintan(true)
+    setMostrarListaTalzintan(true);
   };
 
   const handleCloseListaTalzintan = () => {
     setMostrarListaTalzintan(false);
   };
 
+  const handleObtenerUnidadesLoma = async () => {
+    const numerosLoma = await obtenerUnidades("loma");
+    const numerosTalzintan = await obtenerUnidades("talzintan");
+    setnumerosTalzintan(numerosTalzintan);
+    setnumerosLoma(numerosLoma);
+    setMostrarListaLoma(true);
+  };
+
+  const handleCloseListaLoma = () => {
+    setMostrarListaLoma(false);
+  };
+
+  const handleObtenerUnidadesTezotepec = async () => {
+    const numerosTezotepec = await obtenerUnidades("tezotepec");
+    setnumerosTezotepec(numerosTezotepec);
+    setMostrarListaTezotepec(true);
+  };
+
+  const handleCloseListaTezotepec = () => {
+    setMostrarListaTezotepec(false);
+  };
+
   const formatHoraRegistro = (horaRegistro) => {
     const date = new Date(horaRegistro);
     let hours = date.getHours();
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    const ampm = hours >= 12 ? "PM" : "AM";
     hours = hours % 12;
     hours = hours ? hours : 12; // the hour '0' should be '12'
     return `${hours}:${minutes} ${ampm}`;
+  };
+
+  const handleDownloadImageTalzintan = () => {
+    const input = tablaTalzintanRef.current;
+
+    // Obtener la fecha y hora actual
+    const currentDate = new Date();
+
+    // Obtener los nombres de los días y meses en español
+    const days = [
+      "Domingo",
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado",
+    ];
+    const months = [
+      "enero",
+      "febrero",
+      "marzo",
+      "abril",
+      "mayo",
+      "junio",
+      "julio",
+      "agosto",
+      "septiembre",
+      "octubre",
+      "noviembre",
+      "diciembre",
+    ];
+
+    // Función para convertir la hora de formato 24 horas a formato de 12 horas
+    const get12HourFormat = (hour) => {
+      return hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+    };
+    // Formatear la fecha y hora actual en el formato deseado
+    const dayOfWeek = days[currentDate.getDay()];
+    const dayOfMonth = currentDate.getDate();
+    const month = months[currentDate.getMonth()];
+    const year = currentDate.getFullYear();
+    const hours = get12HourFormat(currentDate.getHours());
+    const minutesWithLeadingZero = currentDate
+      .getMinutes()
+      .toString()
+      .padStart(2, "0");
+
+    const amOrPm = currentDate.getHours() >= 12 ? "pm" : "am";
+    const formattedDate = `Tabla talzintan ${dayOfWeek} ${dayOfMonth} de ${month} de ${year} a las ${hours}.${minutesWithLeadingZero} ${amOrPm}`;
+
+    // Guardar el IMAGEN con el nombre de archivo formateado
+    const filename = `${formattedDate}`;
+
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.download = filename + ".png";
+      link.href = imgData;
+      link.click();
+    });
+  };
+
+  const handleDownloadImageLoma = () => {
+    const input = tablaLomaRef.current;
+
+    // Obtener la fecha y hora actual
+    const currentDate = new Date();
+
+    // Obtener los nombres de los días y meses en español
+    const days = [
+      "Domingo",
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado",
+    ];
+    const months = [
+      "enero",
+      "febrero",
+      "marzo",
+      "abril",
+      "mayo",
+      "junio",
+      "julio",
+      "agosto",
+      "septiembre",
+      "octubre",
+      "noviembre",
+      "diciembre",
+    ];
+
+    // Función para convertir la hora de formato 24 horas a formato de 12 horas
+    const get12HourFormat = (hour) => {
+      return hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+    };
+    // Formatear la fecha y hora actual en el formato deseado
+    const dayOfWeek = days[currentDate.getDay()];
+    const dayOfMonth = currentDate.getDate();
+    const month = months[currentDate.getMonth()];
+    const year = currentDate.getFullYear();
+    const hours = get12HourFormat(currentDate.getHours());
+    const minutesWithLeadingZero = currentDate
+      .getMinutes()
+      .toString()
+      .padStart(2, "0");
+
+    const amOrPm = currentDate.getHours() >= 12 ? "pm" : "am";
+    const formattedDate = `Tabla loma ${dayOfWeek} ${dayOfMonth} de ${month} de ${year} a las ${hours}.${minutesWithLeadingZero} ${amOrPm}`;
+
+    // Guardar el IMAGEN con el nombre de archivo formateado
+    const filename = `${formattedDate}`;
+
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.download = filename + ".png";
+      link.href = imgData;
+      link.click();
+    });
+  };
+
+  const handleDownloadImageTezotepec = () => {
+    const input = tablaTezotepecRef.current;
+
+    // Obtener la fecha y hora actual
+    const currentDate = new Date();
+
+    // Obtener los nombres de los días y meses en español
+    const days = [
+      "Domingo",
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado",
+    ];
+    const months = [
+      "enero",
+      "febrero",
+      "marzo",
+      "abril",
+      "mayo",
+      "junio",
+      "julio",
+      "agosto",
+      "septiembre",
+      "octubre",
+      "noviembre",
+      "diciembre",
+    ];
+
+    // Función para convertir la hora de formato 24 horas a formato de 12 horas
+    const get12HourFormat = (hour) => {
+      return hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+    };
+    // Formatear la fecha y hora actual en el formato deseado
+    const dayOfWeek = days[currentDate.getDay()];
+    const dayOfMonth = currentDate.getDate();
+    const month = months[currentDate.getMonth()];
+    const year = currentDate.getFullYear();
+    const hours = get12HourFormat(currentDate.getHours());
+    const minutesWithLeadingZero = currentDate
+      .getMinutes()
+      .toString()
+      .padStart(2, "0");
+
+    const amOrPm = currentDate.getHours() >= 12 ? "pm" : "am";
+    const formattedDate = `Tabla tezotepec ${dayOfWeek} ${dayOfMonth} de ${month} de ${year} a las ${hours}.${minutesWithLeadingZero} ${amOrPm}`;
+
+    // Guardar el IMAGEN con el nombre de archivo formateado
+    const filename = `${formattedDate}`;
+
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.download = filename + ".png";
+      link.href = imgData;
+      link.click();
+    });
   };
 
   return (
@@ -574,7 +788,8 @@ const UnidadesComponent = () => {
                         penultimaUnidadTalzintan.tipo === "blanco"
                           ? "white-bg"
                           : "red-bg"
-                      }`} onClick={handleObtenerUnidadesTalzintan}
+                      }`}
+                      onClick={handleObtenerUnidadesTalzintan}
                     >
                       {penultimaUnidadTalzintan.numeroUnidad}
                     </button>
@@ -642,6 +857,7 @@ const UnidadesComponent = () => {
                           ? "white-bg"
                           : "red-bg"
                       }`}
+                      onClick={handleObtenerUnidadesLoma}
                     >
                       {penultimaUnidadLoma.numeroUnidad}
                     </button>
@@ -689,6 +905,7 @@ const UnidadesComponent = () => {
                           ? "white-bg"
                           : "red-bg"
                       }`}
+                      onClick={handleObtenerUnidadesTezotepec}
                     >
                       {penultimaUnidadTezotepec.numeroUnidad}
                     </button>
@@ -1303,26 +1520,149 @@ const UnidadesComponent = () => {
         </tbody>
       </table>
       <div>
-      {mostrarListaTalzintan && (
-        <div className="floating-list-talzintan">
-          
-          <button className="close-button" onClick={handleCloseListaTalzintan}>❌ Cerrar</button>
-          Talzintan
-          {numerosTalzintan.slice().reverse().map((unidad, index) => (
-            <>
+        {mostrarListaTalzintan && (
+          <div className="floating-list-talzintan">
             <button
-              key={index}
-              className={`unidad-button ${unidad.tipo === 'rojo' ? 'rojo' : ''}`}
+              className="close-button"
+              onClick={handleCloseListaTalzintan}
             >
-              {unidad.numeroUnidad}
+              ❌ Cerrar Talzintan
             </button>
-            {formatHoraRegistro(unidad.horaRegistro)}
-            <hr></hr>
-            </>
-          ))}
-        </div>
-      )}
-    </div>
+            <table className="lista-talzintan" ref={tablaTalzintanRef}>
+              <thead>
+                <tr>
+                  <th colSpan={3}>Talzintan</th>
+                </tr>
+              </thead>
+              <tbody>
+                {numerosTalzintan
+                  .slice()
+                  .reverse()
+                  .map((unidad, index) => (
+                    <tr key={index}>
+                      <td className="celda-lista">{index + 1}</td>
+                      <td className="celda-lista">
+                        <button
+                          className={`unidad-button ${
+                            unidad.tipo === "rojo" ? "rojo" : ""
+                          }`}
+                        >
+                          {unidad.numeroUnidad}
+                        </button>
+                      </td>
+                      <td className="celda-lista">
+                        {formatHoraRegistro(unidad.horaRegistro)}
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+            <button
+              className="close-button"
+              onClick={handleDownloadImageTalzintan}
+            >
+              📸 Capturar
+            </button>
+          </div>
+        )}
+      </div>
+      {/* LISTA LOMA  LISTA LOMA  LISTA LOMA  LISTA LOMA  LISTA LOMA  LISTA LOMA  */}
+      <div>
+        {mostrarListaLoma && (
+          <div className="floating-list-loma">
+            <button className="close-button-loma" onClick={handleCloseListaLoma}>
+              ❌ Cerrar Loma
+            </button>
+            <table className="lista-loma" ref={tablaLomaRef}>
+              <thead>
+                <tr>
+                  <th colSpan={4}>Loma - Talzintan</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[...numerosTalzintan, ...numerosLoma]
+                  .sort(
+                    (a, b) =>
+                      new Date(b.horaRegistro) - new Date(a.horaRegistro)
+                  )
+                  .slice(0, 10)
+                  .reverse()
+                  .map((unidad, index) => (
+                    <tr key={index}>
+                      <td className="celda-loma">{index + 1}</td>
+                      <td className="celda-loma">
+                        {unidad.ruta === "talzintan" ? "Talzintan" : "Loma"}
+                      </td>
+                      <td className="celda-loma">
+                        <button
+                          className={`unidad-button ${
+                            unidad.tipo === "rojo" ? "rojo" : ""
+                          }`}
+                        >
+                          {unidad.numeroUnidad}
+                        </button>
+                      </td>
+                      <td className="celda-loma">
+                        {formatHoraRegistro(unidad.horaRegistro)}
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+            <button className="close-button-loma" onClick={handleDownloadImageLoma}>
+              📸 Capturar
+            </button>
+          </div>
+        )}
+      </div>
+
+      <div>
+        {mostrarListaTezotepec && (
+          <div className="floating-list-tezotepec">
+            <button
+              className="close-button-tezotepec"
+              onClick={handleCloseListaTezotepec}
+            >
+              ❌ Cerrar Tezotepec
+            </button>
+            <table className="lista-tezotepec" ref={tablaTezotepecRef}>
+              <thead>
+                <tr>
+                  <th colSpan={3}>Tezotepec</th>
+                </tr>
+              </thead>
+              <tbody>
+                {numerosTezotepec
+                  .slice()
+                  .reverse()
+                  .map((unidad, index) => (
+                    <tr key={index}>
+                      <td className="celda-tezotepec">{index + 1}</td>
+                      <td className="celda-tezotepec">
+                        <button
+                          className={`unidad-button ${
+                            unidad.tipo === "rojo" ? "rojo" : ""
+                          }`}
+                        >
+                          {unidad.numeroUnidad}
+                        </button>
+                      </td>
+                      <td className="celda-tezotepec">
+                        {formatHoraRegistro(unidad.horaRegistro)}
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+            <button
+              className="close-button"
+              onClick={handleDownloadImageTezotepec}
+            >
+              📸 Capturar
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

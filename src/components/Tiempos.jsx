@@ -20,6 +20,16 @@ const UnidadesComponent = () => {
   const [mostrarListaLoma, setMostrarListaLoma] = useState(false);
   const [numerosTezotepec, setnumerosTezotepec] = useState([]);
   const [mostrarListaTezotepec, setMostrarListaTezotepec] = useState(false);
+  const [numerosCalicapan, setnumerosCalicapan] = useState([]);
+  const [mostrarListaCalicapan, setMostrarListaCalicapan] = useState(false);
+  const [numerosSosa, setnumerosSosa] = useState([]);
+  const [mostrarListaSosa, setMostrarListaSosa] = useState(false);
+  const [numerosSanisidro, setnumerosSanisidro] = useState([]);
+  const [mostrarListaSanisidro, setMostrarListaSanisidro] = useState(false);
+  const [numerosTacopan, setnumerosTacopan] = useState([]);
+  const [mostrarListaTacopan, setMostrarListaTacopan] = useState(false);
+  const [numerosTequimila, setnumerosTequimila] = useState([]);
+  const [mostrarListaTequimila, setMostrarListaTequimila] = useState(false);
 
   // Estados para todas las unidades
   const [ultimaUnidadTalzintan, setUltimaUnidadTalzintan] = useState(null);
@@ -144,9 +154,17 @@ const UnidadesComponent = () => {
   const [diferenciaRojaSosaEscuela, setDiferenciaRojaSosaEscuela] = useState(0);
   const [diferenciaRojaSanIsidro, setDiferenciaRojaSanIsidro] = useState(0);
 
+  const [horaRegistro, setHoraRegistro] = useState(new Date().toISOString());
+  const [isEditable, setIsEditable] = useState(false);
+
   const tablaTalzintanRef = useRef(null);
   const tablaLomaRef = useRef(null);
   const tablaTezotepecRef = useRef(null);
+  const tablaCalicapanRef = useRef(null);
+  const tablaSosaRef = useRef(null);
+  const tablaSanisidroRef = useRef(null);
+  const tablaTacopanRef = useRef(null);
+  const tablaTequimilaRef = useRef(null);
 
   useEffect(() => {
     const actualizarCronometros = async () => {
@@ -435,11 +453,11 @@ const UnidadesComponent = () => {
 
   const agregarUnidad = async () => {
     if (ruta && tipo && numeroUnidad) {
-      const horaRegistro = new Date().toISOString();
       await db.unidades.add({ ruta, tipo, numeroUnidad, horaRegistro });
       setRuta("");
       setTipo("");
       setNumeroUnidad("");
+      setHoraRegistro(new Date().toISOString());
       setFormVisible(false); // Ocultar el formulario después de agregar la unidad
     }
   };
@@ -453,7 +471,12 @@ const UnidadesComponent = () => {
     setRuta("");
     setTipo("");
     setNumeroUnidad("");
+    setHoraRegistro(new Date().toISOString());
     setFormVisible(false); // Ocultar el formulario al cancelar
+  };
+
+  const handleEditHora = () => {
+    setIsEditable(true);
   };
 
   useEffect(() => {
@@ -502,6 +525,56 @@ const UnidadesComponent = () => {
     setMostrarListaTezotepec(false);
   };
 
+  const handleObtenerUnidadesCalicapan = async () => {
+    const numerosCalicapan = await obtenerUnidades("calicapan");
+    setnumerosCalicapan(numerosCalicapan);
+    setMostrarListaCalicapan(true);
+  };
+
+  const handleCloseListaCalicapan = () => {
+    setMostrarListaCalicapan(false);
+  };
+
+  const handleObtenerUnidadesSosa = async () => {
+    const numerosSosa = await obtenerUnidades("sosa escuela");
+    setnumerosSosa(numerosSosa);
+    setMostrarListaSosa(true);
+  };
+
+  const handleCloseListaSosa = () => {
+    setMostrarListaSosa(false);
+  };
+
+  const handleObtenerUnidadesSanisidro = async () => {
+    const numerosSanisidro = await obtenerUnidades("san isidro");
+    setnumerosSanisidro(numerosSanisidro);
+    setMostrarListaSanisidro(true);
+  };
+
+  const handleCloseListaSanisidro = () => {
+    setMostrarListaSanisidro(false);
+  };
+
+  const handleObtenerUnidadesTacopan = async () => {
+    const numerosTacopan = await obtenerUnidades("tacopan");
+    setnumerosTacopan(numerosTacopan);
+    setMostrarListaTacopan(true);
+  };
+
+  const handleCloseListaTacopan = () => {
+    setMostrarListaTacopan(false);
+  };
+
+  const handleObtenerUnidadesTequimila = async () => {
+    const numerosTequimila = await obtenerUnidades("tequimila");
+    setnumerosTequimila(numerosTequimila);
+    setMostrarListaTequimila(true);
+  };
+
+  const handleCloseListaTequimila = () => {
+    setMostrarListaTequimila(false);
+  };
+
   const formatHoraRegistro = (horaRegistro) => {
     const date = new Date(horaRegistro);
     let hours = date.getHours();
@@ -514,11 +587,7 @@ const UnidadesComponent = () => {
 
   const handleDownloadImageTalzintan = () => {
     const input = tablaTalzintanRef.current;
-
-    // Obtener la fecha y hora actual
-    const currentDate = new Date();
-
-    // Obtener los nombres de los días y meses en español
+    const currentDate = new Date(); // Obtener la fecha y hora actual
     const days = [
       "Domingo",
       "Lunes",
@@ -527,7 +596,7 @@ const UnidadesComponent = () => {
       "Jueves",
       "Viernes",
       "Sábado",
-    ];
+    ]; // Obtener los nombres de los días y meses en español
     const months = [
       "enero",
       "febrero",
@@ -542,7 +611,6 @@ const UnidadesComponent = () => {
       "noviembre",
       "diciembre",
     ];
-
     // Función para convertir la hora de formato 24 horas a formato de 12 horas
     const get12HourFormat = (hour) => {
       return hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
@@ -695,6 +763,292 @@ const UnidadesComponent = () => {
     });
   };
 
+  const handleDownloadImageCalicapan = () => {
+    const input = tablaCalicapanRef.current;
+    const currentDate = new Date(); // Obtener la fecha y hora actual
+    const days = [
+      "Domingo",
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado",
+    ]; // Obtener los nombres de los días y meses en español
+    const months = [
+      "enero",
+      "febrero",
+      "marzo",
+      "abril",
+      "mayo",
+      "junio",
+      "julio",
+      "agosto",
+      "septiembre",
+      "octubre",
+      "noviembre",
+      "diciembre",
+    ];
+    // Función para convertir la hora de formato 24 horas a formato de 12 horas
+    const get12HourFormat = (hour) => {
+      return hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+    };
+    // Formatear la fecha y hora actual en el formato deseado
+    const dayOfWeek = days[currentDate.getDay()];
+    const dayOfMonth = currentDate.getDate();
+    const month = months[currentDate.getMonth()];
+    const year = currentDate.getFullYear();
+    const hours = get12HourFormat(currentDate.getHours());
+    const minutesWithLeadingZero = currentDate
+      .getMinutes()
+      .toString()
+      .padStart(2, "0");
+
+    const amOrPm = currentDate.getHours() >= 12 ? "pm" : "am";
+    const formattedDate = `Tabla calicapan ${dayOfWeek} ${dayOfMonth} de ${month} de ${year} a las ${hours}.${minutesWithLeadingZero} ${amOrPm}`;
+
+    // Guardar el IMAGEN con el nombre de archivo formateado
+    const filename = `${formattedDate}`;
+
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.download = filename + ".png";
+      link.href = imgData;
+      link.click();
+    });
+  };
+
+  const handleDownloadImageSosa = () => {
+    const input = tablaSosaRef.current;
+    const currentDate = new Date(); // Obtener la fecha y hora actual
+    const days = [
+      "Domingo",
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado",
+    ]; // Obtener los nombres de los días y meses en español
+    const months = [
+      "enero",
+      "febrero",
+      "marzo",
+      "abril",
+      "mayo",
+      "junio",
+      "julio",
+      "agosto",
+      "septiembre",
+      "octubre",
+      "noviembre",
+      "diciembre",
+    ];
+    // Función para convertir la hora de formato 24 horas a formato de 12 horas
+    const get12HourFormat = (hour) => {
+      return hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+    };
+    // Formatear la fecha y hora actual en el formato deseado
+    const dayOfWeek = days[currentDate.getDay()];
+    const dayOfMonth = currentDate.getDate();
+    const month = months[currentDate.getMonth()];
+    const year = currentDate.getFullYear();
+    const hours = get12HourFormat(currentDate.getHours());
+    const minutesWithLeadingZero = currentDate
+      .getMinutes()
+      .toString()
+      .padStart(2, "0");
+
+    const amOrPm = currentDate.getHours() >= 12 ? "pm" : "am";
+    const formattedDate = `Tabla sosa ${dayOfWeek} ${dayOfMonth} de ${month} de ${year} a las ${hours}.${minutesWithLeadingZero} ${amOrPm}`;
+
+    // Guardar el IMAGEN con el nombre de archivo formateado
+    const filename = `${formattedDate}`;
+
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.download = filename + ".png";
+      link.href = imgData;
+      link.click();
+    });
+  };
+
+  const handleDownloadImageSanisidro = () => {
+    const input = tablaSanisidroRef.current;
+    const currentDate = new Date(); // Obtener la fecha y hora actual
+    const days = [
+      "Domingo",
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado",
+    ]; // Obtener los nombres de los días y meses en español
+    const months = [
+      "enero",
+      "febrero",
+      "marzo",
+      "abril",
+      "mayo",
+      "junio",
+      "julio",
+      "agosto",
+      "septiembre",
+      "octubre",
+      "noviembre",
+      "diciembre",
+    ];
+    // Función para convertir la hora de formato 24 horas a formato de 12 horas
+    const get12HourFormat = (hour) => {
+      return hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+    };
+    // Formatear la fecha y hora actual en el formato deseado
+    const dayOfWeek = days[currentDate.getDay()];
+    const dayOfMonth = currentDate.getDate();
+    const month = months[currentDate.getMonth()];
+    const year = currentDate.getFullYear();
+    const hours = get12HourFormat(currentDate.getHours());
+    const minutesWithLeadingZero = currentDate
+      .getMinutes()
+      .toString()
+      .padStart(2, "0");
+
+    const amOrPm = currentDate.getHours() >= 12 ? "pm" : "am";
+    const formattedDate = `Tabla san isidro ${dayOfWeek} ${dayOfMonth} de ${month} de ${year} a las ${hours}.${minutesWithLeadingZero} ${amOrPm}`;
+
+    // Guardar el IMAGEN con el nombre de archivo formateado
+    const filename = `${formattedDate}`;
+
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.download = filename + ".png";
+      link.href = imgData;
+      link.click();
+    });
+  };
+
+  const handleDownloadImageTacopan = () => {
+    const input = tablaTacopanRef.current;
+    const currentDate = new Date(); // Obtener la fecha y hora actual
+    const days = [
+      "Domingo",
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado",
+    ]; // Obtener los nombres de los días y meses en español
+    const months = [
+      "enero",
+      "febrero",
+      "marzo",
+      "abril",
+      "mayo",
+      "junio",
+      "julio",
+      "agosto",
+      "septiembre",
+      "octubre",
+      "noviembre",
+      "diciembre",
+    ];
+    // Función para convertir la hora de formato 24 horas a formato de 12 horas
+    const get12HourFormat = (hour) => {
+      return hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+    };
+    // Formatear la fecha y hora actual en el formato deseado
+    const dayOfWeek = days[currentDate.getDay()];
+    const dayOfMonth = currentDate.getDate();
+    const month = months[currentDate.getMonth()];
+    const year = currentDate.getFullYear();
+    const hours = get12HourFormat(currentDate.getHours());
+    const minutesWithLeadingZero = currentDate
+      .getMinutes()
+      .toString()
+      .padStart(2, "0");
+
+    const amOrPm = currentDate.getHours() >= 12 ? "pm" : "am";
+    const formattedDate = `Tabla tacopan ${dayOfWeek} ${dayOfMonth} de ${month} de ${year} a las ${hours}.${minutesWithLeadingZero} ${amOrPm}`;
+
+    // Guardar el IMAGEN con el nombre de archivo formateado
+    const filename = `${formattedDate}`;
+
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.download = filename + ".png";
+      link.href = imgData;
+      link.click();
+    });
+  };
+
+  const handleDownloadImageTequimila = () => {
+    const input = tablaTequimilaRef.current;
+    const currentDate = new Date(); // Obtener la fecha y hora actual
+    const days = [
+      "Domingo",
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado",
+    ]; // Obtener los nombres de los días y meses en español
+    const months = [
+      "enero",
+      "febrero",
+      "marzo",
+      "abril",
+      "mayo",
+      "junio",
+      "julio",
+      "agosto",
+      "septiembre",
+      "octubre",
+      "noviembre",
+      "diciembre",
+    ];
+    // Función para convertir la hora de formato 24 horas a formato de 12 horas
+    const get12HourFormat = (hour) => {
+      return hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+    };
+    // Formatear la fecha y hora actual en el formato deseado
+    const dayOfWeek = days[currentDate.getDay()];
+    const dayOfMonth = currentDate.getDate();
+    const month = months[currentDate.getMonth()];
+    const year = currentDate.getFullYear();
+    const hours = get12HourFormat(currentDate.getHours());
+    const minutesWithLeadingZero = currentDate
+      .getMinutes()
+      .toString()
+      .padStart(2, "0");
+
+    const amOrPm = currentDate.getHours() >= 12 ? "pm" : "am";
+    const formattedDate = `Tabla tequimila ${dayOfWeek} ${dayOfMonth} de ${month} de ${year} a las ${hours}.${minutesWithLeadingZero} ${amOrPm}`;
+
+    // Guardar el IMAGEN con el nombre de archivo formateado
+    const filename = `${formattedDate}`;
+
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.download = filename + ".png";
+      link.href = imgData;
+      link.click();
+    });
+  };
+
+  const add46Minutes = (horaRegistro) => {
+    const date = new Date(horaRegistro);
+    date.setMinutes(date.getMinutes() + 46);
+    return date;
+  };
+
   return (
     <div>
       {/*FORMULARIO FORMULARIO FORMULARIO FORMULARIO FORMULARIO FORMULARIO FORMULARIO FORMULARIO*/}
@@ -744,6 +1098,21 @@ const UnidadesComponent = () => {
                   R-3
                 </button>
               </div>
+              <div className="hora-registro-container">
+              <label>Hora de Registro:</label>
+              <input
+                type="datetime-local"
+                value={isEditable ? horaRegistro.slice(0, 16) : horaRegistro.slice(0, 16)}
+                onChange={(e) => setHoraRegistro(e.target.value)}
+                disabled={!isEditable}
+              />
+              <button
+                type="button"
+                onClick={handleEditHora}
+              >
+                Editar Hora
+              </button>
+            </div>
             </form>
           </div>
         </div>
@@ -975,6 +1344,7 @@ const UnidadesComponent = () => {
                           ? "white-bg"
                           : "red-bg"
                       }`}
+                      onClick={handleObtenerUnidadesCalicapan}
                     >
                       {penultimaUnidadCalicapan.numeroUnidad}
                     </button>
@@ -1044,6 +1414,7 @@ const UnidadesComponent = () => {
                           ? "white-bg"
                           : "red-bg"
                       }`}
+                      onClick={handleObtenerUnidadesSosa}
                     >
                       {penultimaUnidadSosaEscuela.numeroUnidad}
                     </button>
@@ -1113,6 +1484,7 @@ const UnidadesComponent = () => {
                           ? "white-bg"
                           : "red-bg"
                       }`}
+                      onClick={handleObtenerUnidadesSanisidro}
                     >
                       {penultimaUnidadSanIsidro.numeroUnidad}
                     </button>
@@ -1182,6 +1554,7 @@ const UnidadesComponent = () => {
                           ? "white-bg"
                           : "red-bg"
                       }`}
+                      onClick={handleObtenerUnidadesTacopan}
                     >
                       {penultimaUnidadTacopan.numeroUnidad}
                     </button>
@@ -1230,6 +1603,7 @@ const UnidadesComponent = () => {
                           ? "white-bg"
                           : "red-bg"
                       }`}
+                      onClick={handleObtenerUnidadesTequimila}
                     >
                       {penultimaUnidadTequimila.numeroUnidad}
                     </button>
@@ -1570,7 +1944,10 @@ const UnidadesComponent = () => {
       <div>
         {mostrarListaLoma && (
           <div className="floating-list-loma">
-            <button className="close-button-loma" onClick={handleCloseListaLoma}>
+            <button
+              className="close-button-loma"
+              onClick={handleCloseListaLoma}
+            >
               ❌ Cerrar Loma
             </button>
             <table className="lista-loma" ref={tablaLomaRef}>
@@ -1609,7 +1986,10 @@ const UnidadesComponent = () => {
                   ))}
               </tbody>
             </table>
-            <button className="close-button-loma" onClick={handleDownloadImageLoma}>
+            <button
+              className="close-button-loma"
+              onClick={handleDownloadImageLoma}
+            >
               📸 Capturar
             </button>
           </div>
@@ -1657,6 +2037,264 @@ const UnidadesComponent = () => {
             <button
               className="close-button"
               onClick={handleDownloadImageTezotepec}
+            >
+              📸 Capturar
+            </button>
+          </div>
+        )}
+      </div>
+
+      <div>
+        {mostrarListaCalicapan && (
+          <div className="floating-list-calicapan">
+            <button
+              className="close-button-calicapan"
+              onClick={handleCloseListaCalicapan}
+            >
+              ❌ Cerrar Calicapan
+            </button>
+            <table className="lista-calicapan" ref={tablaCalicapanRef}>
+              <thead>
+                <tr>
+                  <th colSpan={3}>Calicapan</th>
+                </tr>
+              </thead>
+              <tbody>
+                {numerosCalicapan
+                  .slice()
+                  .reverse()
+                  .map((unidad, index) => (
+                    <tr key={index}>
+                      <td className="celda-calicapan">{index + 1}</td>
+                      <td className="celda-calicapan">
+                        <button
+                          className={`unidad-button ${
+                            unidad.tipo === "rojo" ? "rojo" : ""
+                          }`}
+                        >
+                          {unidad.numeroUnidad}
+                        </button>
+                      </td>
+                      <td className="celda-calicapan">
+                        {formatHoraRegistro(unidad.horaRegistro)}
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+            <button
+              className="close-button"
+              onClick={handleDownloadImageCalicapan}
+            >
+              📸 Capturar
+            </button>
+          </div>
+        )}
+      </div>
+
+      <div>
+        {mostrarListaSosa && (
+          <div className="floating-list-sosa">
+            <button
+              className="close-button-sosa"
+              onClick={handleCloseListaSosa}
+            >
+              ❌ Cerrar Sosa Escuela
+            </button>
+            <table className="lista-sosa" ref={tablaSosaRef}>
+              <thead>
+                <tr>
+                  <th colSpan={3}>Sosa Escuela</th>
+                </tr>
+              </thead>
+              <tbody>
+                {numerosSosa
+                  .slice()
+                  .reverse()
+                  .map((unidad, index) => (
+                    <tr key={index}>
+                      <td className="celda-sosa">{index + 1}</td>
+                      <td className="celda-sosa">
+                        <button
+                          className={`unidad-button ${
+                            unidad.tipo === "rojo" ? "rojo" : ""
+                          }`}
+                        >
+                          {unidad.numeroUnidad}
+                        </button>
+                      </td>
+                      <td className="celda-sosa">
+                        {formatHoraRegistro(unidad.horaRegistro)}
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+            <button className="close-button" onClick={handleDownloadImageSosa}>
+              📸 Capturar
+            </button>
+          </div>
+        )}
+      </div>
+
+      <div>
+        {mostrarListaSanisidro && (
+          <div className="floating-list-sanisidro">
+            <button
+              className="close-button-sanisidro"
+              onClick={handleCloseListaSanisidro}
+            >
+              ❌ Cerrar San Isidro
+            </button>
+            <table className="lista-sanisidro" ref={tablaSanisidroRef}>
+              <thead>
+                <tr>
+                  <th colSpan={3}>San Isidro</th>
+                </tr>
+              </thead>
+              <tbody>
+                {numerosSanisidro
+                  .slice()
+                  .reverse()
+                  .map((unidad, index) => (
+                    <tr key={index}>
+                      <td className="celda-sanisidro">{index + 1}</td>
+                      <td className="celda-sanisidro">
+                        <button
+                          className={`unidad-button ${
+                            unidad.tipo === "rojo" ? "rojo" : ""
+                          }`}
+                        >
+                          {unidad.numeroUnidad}
+                        </button>
+                      </td>
+                      <td className="celda-sanisidro">
+                        {formatHoraRegistro(unidad.horaRegistro)}
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+            <button
+              className="close-button"
+              onClick={handleDownloadImageSanisidro}
+            >
+              📸 Capturar
+            </button>
+          </div>
+        )}
+      </div>
+
+      <div>
+        {mostrarListaTacopan && (
+          <div className="floating-list-tacopan">
+            <button
+              className="close-button-tacopan"
+              onClick={handleCloseListaTacopan}
+            >
+              ❌ Cerrar Tacopan
+            </button>
+            <table className="lista-tacopan" ref={tablaTacopanRef}>
+              <thead>
+                <tr>
+                  <th colSpan={3}>Tacopan</th>
+                </tr>
+              </thead>
+              <tbody>
+                {numerosTacopan
+                  .slice()
+                  .reverse()
+                  .map((unidad, index) => (
+                    <tr key={index}>
+                      <td className="celda-tacopan">{index + 1}</td>
+                      <td className="celda-tacopan">
+                        <button
+                          className={`unidad-button ${
+                            unidad.tipo === "rojo" ? "rojo" : ""
+                          }`}
+                        >
+                          {unidad.numeroUnidad}
+                        </button>
+                      </td>
+                      <td className="celda-tacopan">
+                        {formatHoraRegistro(unidad.horaRegistro)}
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+            <button
+              className="close-button"
+              onClick={handleDownloadImageTacopan}
+            >
+              📸 Capturar
+            </button>
+          </div>
+        )}
+      </div>
+
+      <div>
+        {mostrarListaTequimila && (
+          <div className="floating-list-tequimila">
+            <button
+              className="close-button-tequimila"
+              onClick={handleCloseListaTequimila}
+            >
+              ❌ Cerrar Tequimila
+            </button>
+            <table className="lista-tequimila" ref={tablaTequimilaRef}>
+              <thead>
+                <tr>
+                  <th colSpan={4}>Tequimila</th>
+                </tr>
+                <tr>
+                  <th colSpan={2}></th>
+                  <th className="encabezado-tequimila">tequimila</th>
+                  <th className="celda-calicapan">calicapan</th>
+                </tr>
+              </thead>
+              <tbody>
+                {numerosTequimila
+                  .slice()
+                  .reverse()
+                  .map((unidad, index) => {
+                    const minutos = new Date(unidad.horaRegistro).getMinutes();
+                    let backgroundColor = "";
+
+                    if (minutos >= 6 && minutos <= 14) {
+                      backgroundColor = "#FF0000"; // Rojo en hexadecimal
+                    } else if (minutos >= 16 && minutos <= 24) {
+                      backgroundColor = "#0051FF"; // Azul en hexadecimal
+                    }
+
+                    return (
+                      <tr key={index}>
+                        <td className="celda-tequimila">{index + 1}</td>
+                        <td className="celda-tequimila">
+                          <button
+                            className={`unidad-button ${
+                              unidad.tipo === "rojo" ? "rojo" : ""
+                            }`}
+                          >
+                            {unidad.numeroUnidad}
+                          </button>
+                        </td>
+                        <td className="celda-tequimila">
+                          {formatHoraRegistro(unidad.horaRegistro)}
+                        </td>
+                        <td className="celda-calicapan" style={{ backgroundColor }}>
+                          {formatHoraRegistro(
+                            add46Minutes(unidad.horaRegistro)
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+            <button
+              className="close-button-tequimila"
+              onClick={handleDownloadImageTequimila}
             >
               📸 Capturar
             </button>

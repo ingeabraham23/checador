@@ -22,7 +22,7 @@ body {
   transform: translate(-50%, -50%); /* Ajustando el centrado */
   z-index: 1001; /* Alto índice para estar al frente */
   background-color: white; /* Fondo blanco */
-  padding: 20px; /* Espaciado interno */
+  padding: 5px; /* Espaciado interno */
   border: 1px solid #ccc; /* Borde */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra */
   border-radius: 8px; /* Esquinas redondeadas */
@@ -145,16 +145,16 @@ table {
 }
 
 .celda-talzintan {
-  background-color: #00ff15;
+  background-color: #58ff66;
   padding: 0px;
 }
 
 .button-se-lleva-talzintan {
   width: 80px;
-  background-color: #00ff15;
+  background-color: #58ff66;
   text-align: center;
-  color: #ffffff;
-  border: 1px solid #000; /* Elimina el borde */
+  color: #000000;
+  border: 3px solid #000000; /* Elimina el borde */
   margin: 2px;
   padding: 1px 5px;
   border-radius: 4px;
@@ -172,8 +172,8 @@ table {
   width: 80px;
   background-color: #adf7b3;
   text-align: center;
-  color: #ffffff;
-  border: 1px solid #000; /* Elimina el borde */
+  color: #000000;
+  border: 3px solid #000; /* Elimina el borde */
   margin: 2px;
   padding: 1px 5px;
   border-radius: 4px;
@@ -191,8 +191,8 @@ table {
   width: 80px;
   background-color: #eb9d36;
   text-align: center;
-  color: #ffffff;
-  border: 1px solid #000; /* Elimina el borde */
+  color: #000000;
+  border: 3px solid #000; /* Elimina el borde */
   margin: 2px;
   padding: 1px 5px;
   border-radius: 4px;
@@ -210,8 +210,8 @@ table {
   width: 80px;
   background-color: #00c3ff;
   text-align: center;
-  color: #ffffff;
-  border: 1px solid #000; /* Elimina el borde */
+  color: #000000;
+  border: 3px solid #000; /* Elimina el borde */
   margin: 2px;
   padding: 1px 5px;
   border-radius: 4px;
@@ -229,8 +229,8 @@ table {
   width: 80px;
   background-color: #ea00ff;
   text-align: center;
-  color: #ffffff;
-  border: 1px solid #000; /* Elimina el borde */
+  color: #000000;
+  border: 3px solid #000; /* Elimina el borde */
   margin: 2px;
   padding: 1px 5px;
   border-radius: 4px;
@@ -250,8 +250,8 @@ table {
   width: 80px;
   background-color: #9c9c9c;
   text-align: center;
-  color: #ffffff;
-  border: 1px solid #000; /* Elimina el borde */
+  color: #000000;
+  border: 3px solid #000; /* Elimina el borde */
   margin: 2px;
   padding: 1px 5px;
   border-radius: 4px;
@@ -271,7 +271,7 @@ table {
   background-color: #fffb00;
   text-align: center;
   color: #000000;
-  border: 1px solid #000; /* Elimina el borde */
+  border: 3px solid #000; /* Elimina el borde */
   margin: 2px;
   padding: 1px 5px;
   border-radius: 4px;
@@ -289,8 +289,8 @@ table {
   width: 80px;
   background-color: #006100;
   text-align: center;
-  color: #ffffff;
-  border: 1px solid #000; /* Elimina el borde */
+  color: #000000;
+  border: 3px solid #000; /* Elimina el borde */
   margin: 2px;
   padding: 1px 5px;
   border-radius: 4px;
@@ -308,8 +308,8 @@ table {
   width: 80px;
   background-color: #ff0000;
   text-align: center;
-  color: #ffffff;
-  border: 1px solid #000; /* Elimina el borde */
+  color: #000000;
+  border: 3px solid #000; /* Elimina el borde */
   margin: 2px;
   padding: 1px 5px;
   border-radius: 4px;
@@ -327,8 +327,8 @@ table {
   width: 80px;
   background-color: #0051ff;
   text-align: center;
-  color: #ffffff;
-  border: 1px solid #000; /* Elimina el borde */
+  color: #000000;
+  border: 3px solid #000; /* Elimina el borde */
   margin: 2px;
   padding: 1px 5px;
   border-radius: 4px;
@@ -346,8 +346,8 @@ table {
   width: 80px;
   background-color: #0051ff;
   text-align: center;
-  color: #ffffff;
-  border: 1px solid #000; /* Elimina el borde */
+  color: #000000;
+  border: 3px solid #000; /* Elimina el borde */
   margin: 2px;
   padding: 1px 5px;
   border-radius: 4px;
@@ -365,8 +365,8 @@ table {
   width: 80px;
   background-color: #9350ff;
   text-align: center;
-  color: #ffffff;
-  border: 1px solid #000; /* Elimina el borde */
+  color: #000000;
+  border: 3px solid #000; /* Elimina el borde */
   margin: 2px;
   padding: 1px 5px;
   border-radius: 4px;
@@ -384,8 +384,8 @@ table {
   width: 80px;
   background-color: #6200ff;
   text-align: center;
-  color: #ffffff;
-  border: 1px solid #000; /* Elimina el borde */
+  color: #000000;
+  border: 3px solid #000; /* Elimina el borde */
   margin: 2px;
   padding: 1px 5px;
   border-radius: 4px;
@@ -405,7 +405,7 @@ table {
   background-color: #a6ff00;
   text-align: center;
   color: #000000;
-  border: 1px solid #000; /* Elimina el borde */
+  border: 3px solid #000; /* Elimina el borde */
   margin: 2px;
   padding: 1px 5px;
   border-radius: 4px;
@@ -424,8 +424,8 @@ table {
   width: 80px;
   background-color: #6ca700;
   text-align: center;
-  color: #ffffff;
-  border: 1px solid #000; /* Elimina el borde */
+  color: #000000;
+  border: 3px solid #000; /* Elimina el borde */
   margin: 2px;
   padding: 1px 5px;
   border-radius: 4px;
@@ -445,7 +445,7 @@ table {
   background-color: #ffffff;
   text-align: center;
   color: #000000;
-  border: 1px solid #000; /* Elimina el borde */
+  border: 3px solid #000; /* Elimina el borde */
   margin: 2px;
   padding: 1px 5px;
   border-radius: 4px;
@@ -538,10 +538,10 @@ table {
   max-height: 600px; /* Adjust height as needed */
   overflow-y: auto; /* Add scroll if content exceeds max height */
   z-index: 1000; /* Ensure it stays on top */
-  background-color: #00ff15; /* Background color */
+  background-color: #58ff66; /* Background color */
   border: 1px solid #000000; /* Border style */
   border-radius: 5px; /* Rounded corners */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow for floating effect */
+  /*box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);  Shadow for floating effect */
   padding: 10px; /* Padding inside the container */
   text-align: center;
   color: #000000;
@@ -550,12 +550,12 @@ table {
 .lista-talzintan{
   border: 1px solid black;
   border-collapse: collapse;
-  background-color: #00ff15;
+  background-color: #58ff66;
 }
 
 .celda-lista{
   border: 1px solid black;
-  background-color: #00ff15;
+  background-color: #58ff66;
   padding: 3px;
 }
 
@@ -922,6 +922,348 @@ table {
   color: #555;
 }
 
+.floating-list-quinta {
+  position: fixed; /* or absolute depending on your needs */
+  top: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+  width: 290px; /* Adjust width as needed */
+  max-height: 600px; /* Adjust height as needed */
+  overflow-y: auto; /* Add scroll if content exceeds max height */
+  z-index: 1000; /* Ensure it stays on top */
+  background-color: #6ca700; /* Background color */
+  border: 1px solid #000000; /* Border style */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow for floating effect */
+  padding: 10px; /* Padding inside the container */
+  text-align: center;
+  color: #000000;
+}
+
+.lista-quinta{
+  border: 1px solid black;
+  border-collapse: collapse;
+  background-color: #6ca700;
+}
+
+.celda-quinta{
+  border: 1px solid black;
+  background-color: #6ca700;
+  padding: 3px;
+}
+
+.encabezado-quinta{
+  border: 1px solid black;
+  background-color: #6ca700;
+  padding: 3px;
+}
+
+.close-button-quinta {
+  display: block;
+  top: 5px;
+  right: 5px;
+
+  width: 285px;
+  height: 40px;
+  background-color: #565756;
+  text-align: center;
+  color: #ffffff;
+  border: 1px solid #000; /* Elimina el borde */
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.close-button-quinta:hover {
+  color: #555;
+}
+
+.floating-list-calanorte {
+  position: fixed; /* or absolute depending on your needs */
+  top: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+  width: 225px; /* Adjust width as needed */
+  max-height: 600px; /* Adjust height as needed */
+  overflow-y: auto; /* Add scroll if content exceeds max height */
+  z-index: 1000; /* Ensure it stays on top */
+  background-color: #006100; /* Background color */
+  border: 1px solid #000000; /* Border style */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow for floating effect */
+  padding: 10px; /* Padding inside the container */
+  text-align: center;
+  color: #000000;
+}
+
+.lista-calanorte{
+  border: 1px solid black;
+  border-collapse: collapse;
+  background-color: #006100;
+}
+
+.celda-calanorte{
+  border: 1px solid black;
+  background-color: #006100;
+  padding: 3px;
+}
+
+.encabezado-calanorte{
+  border: 1px solid black;
+  background-color: #006100;
+  padding: 3px;
+}
+
+.close-button-calanorte {
+  display: block;
+  top: 5px;
+  right: 5px;
+
+  width: 220px;
+  height: 40px;
+  background-color: #565756;
+  text-align: center;
+  color: #ffffff;
+  border: 1px solid #000; /* Elimina el borde */
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.close-button-calanorte:hover {
+  color: #555;
+}
+
+.floating-list-pajaco {
+  position: fixed; /* or absolute depending on your needs */
+  top: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+  width: 290px; /* Adjust width as needed */
+  max-height: 600px; /* Adjust height as needed */
+  overflow-y: auto; /* Add scroll if content exceeds max height */
+  z-index: 1000; /* Ensure it stays on top */
+  background-color: #ff0000; /* Background color */
+  border: 1px solid #000000; /* Border style */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow for floating effect */
+  padding: 10px; /* Padding inside the container */
+  text-align: center;
+  color: #000000;
+}
+
+.lista-pajaco{
+  border: 1px solid black;
+  border-collapse: collapse;
+  background-color: #ff0000;
+}
+
+.celda-pajaco{
+  border: 1px solid black;
+  background-color: #ff0000;
+  padding: 3px;
+}
+
+.encabezado-pajaco{
+  border: 1px solid black;
+  background-color: #ff0000;
+  padding: 3px;
+}
+
+.close-button-pajaco{
+  display: block;
+  top: 5px;
+  right: 5px;
+
+  width: 285px;
+  height: 40px;
+  background-color: #565756;
+  text-align: center;
+  color: #ffffff;
+  border: 1px solid #000; /* Elimina el borde */
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.close-button-pajaco:hover {
+  color: #555;
+}
+
+.floating-list-analco {
+  position: fixed; /* or absolute depending on your needs */
+  top: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+  width: 290px; /* Adjust width as needed */
+  max-height: 600px; /* Adjust height as needed */
+  overflow-y: auto; /* Add scroll if content exceeds max height */
+  z-index: 1000; /* Ensure it stays on top */
+  background-color: #0051ff; /* Background color */
+  border: 1px solid #000000; /* Border style */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow for floating effect */
+  padding: 10px; /* Padding inside the container */
+  text-align: center;
+  color: #000000;
+}
+
+.lista-analco{
+  border: 1px solid black;
+  border-collapse: collapse;
+  background-color: #0051ff;
+}
+
+.celda-analco{
+  border: 1px solid black;
+  background-color: #0051ff;
+  padding: 3px;
+}
+
+.encabezado-analco{
+  border: 1px solid black;
+  background-color: #0051ff;
+  padding: 3px;
+}
+
+.close-button-analco{
+  display: block;
+  top: 5px;
+  right: 5px;
+
+  width: 285px;
+  height: 40px;
+  background-color: #565756;
+  text-align: center;
+  color: #ffffff;
+  border: 1px solid #000; /* Elimina el borde */
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.close-button-analco:hover {
+  color: #555;
+}
+
+.floating-list-yopi {
+  position: fixed; /* or absolute depending on your needs */
+  top: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+  width: 225px; /* Adjust width as needed */
+  max-height: 600px; /* Adjust height as needed */
+  overflow-y: auto; /* Add scroll if content exceeds max height */
+  z-index: 1000; /* Ensure it stays on top */
+  background-color: #9350ff; /* Background color */
+  border: 1px solid #000000; /* Border style */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow for floating effect */
+  padding: 10px; /* Padding inside the container */
+  text-align: center;
+  color: #000000;
+}
+
+.lista-yopi{
+  border: 1px solid black;
+  border-collapse: collapse;
+  background-color: #9350ff;
+}
+
+.celda-yopi{
+  border: 1px solid black;
+  background-color: #9350ff;
+  padding: 3px;
+}
+
+.encabezado-yopi{
+  border: 1px solid black;
+  background-color: #9350ff;
+  padding: 3px;
+}
+
+.close-button-yopi{
+  display: block;
+  top: 5px;
+  right: 5px;
+
+  width: 220px;
+  height: 40px;
+  background-color: #565756;
+  text-align: center;
+  color: #ffffff;
+  border: 1px solid #000; /* Elimina el borde */
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.close-button-yopi:hover {
+  color: #555;
+}
+
+.floating-list-otra {
+  position: fixed; /* or absolute depending on your needs */
+  top: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+  width: 225px; /* Adjust width as needed */
+  max-height: 600px; /* Adjust height as needed */
+  overflow-y: auto; /* Add scroll if content exceeds max height */
+  z-index: 1000; /* Ensure it stays on top */
+  background-color: #ffffff; /* Background color */
+  border: 1px solid #000000; /* Border style */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow for floating effect */
+  padding: 10px; /* Padding inside the container */
+  text-align: center;
+  color: #000000;
+}
+
+.lista-otra{
+  border: 1px solid black;
+  border-collapse: collapse;
+  background-color: #ffffff;
+}
+
+.celda-otra{
+  border: 1px solid black;
+  background-color: #ffffff;
+  padding: 3px;
+}
+
+.encabezado-otra{
+  border: 1px solid black;
+  background-color: #ffffff;
+  padding: 3px;
+}
+
+.close-button-otra{
+  display: block;
+  top: 5px;
+  right: 5px;
+
+  width: 220px;
+  height: 40px;
+  background-color: #565756;
+  text-align: center;
+  color: #ffffff;
+  border: 1px solid #000; /* Elimina el borde */
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.close-button-otra:hover {
+  color: #555;
+}
+
 .unidad-button {
   display: block;
   width: 100%;
@@ -970,4 +1312,28 @@ table {
   color: #555;
 }
 
+.custom-datetime-input {
+  padding: 2px;
+  border-radius: 5px;
+  background-color: #9350ff;
+  border: 1px solid #cccccc;
+  font-size: 16px;
+}
+
+.custom-datetime-input:disabled {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+}
+
+.boton-editar-hora{
+  background-color: #b7ff65; /* Cambia el color de fondo */
+  color: rgb(0, 0, 0); /* Cambia el color del texto */
+  padding: 1px; /* Aumenta el espacio alrededor del texto */
+  border: 1px solid #000; /* Elimina el borde */
+  font-size: 16px;
+  border-radius: 5px; /* Agrega bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+  transition: background-color 0.3s ease; /* Agrega una transición */
+  font-weight: bold;
+}
 

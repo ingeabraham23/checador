@@ -1,0 +1,23 @@
+/* TablaUnidades.css */
+
+.container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .tabla-unidades {
+    width: 90%;
+    border-collapse: collapse;
+    margin: 0px;
+  }
+  
+  .fila-unidades {
+    padding: 4px;
+    text-align: center;
+  }
+  
+  .celda-unidades {
+    padding: 4px;
+    text-align: center;
+  }
+  

@@ -2,12 +2,16 @@ import { Link } from 'react-router-dom';
 import "./Navbar.css"
 import {
     faClock,
+    faDollar,
+    faReceipt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const navigationItems = [
   { path: '/', icon: faClock, label: 'Tiempos' },
   { path: '/datos', icon: faClock, label: 'Datos' },
+  { path: '/reporte', icon: faReceipt, label: 'Reporte' },
+  { path: '/comision', icon: faDollar, label: 'Comision' },
 
 ];
 

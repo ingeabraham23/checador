@@ -169,6 +169,8 @@ const UnidadesComponent = () => {
   const [horaRegistro, setHoraRegistro] = useState(new Date().toISOString());
   const [isEditable, setIsEditable] = useState(false);
   const [isHoraVisible, setIsHoraVisible] = useState(false);
+  // eslint-disable-next-line no-unused-vars
+  const [color, setColor] = useState("#FFFFFF");
 
   const tablaTalzintanRef = useRef(null);
   const tablaLomaRef = useRef(null);
@@ -477,7 +479,7 @@ const UnidadesComponent = () => {
         alert('Por favor ingresa un número válido para la unidad.');
         return;
       }
-      await db.unidades.add({ ruta, tipo, numeroUnidad: numeroUnidadNumerico, horaRegistro });
+      await db.unidades.add({ ruta, tipo, numeroUnidad: numeroUnidadNumerico, horaRegistro, color });
       setRuta("");
       setTipo("");
       setNumeroUnidad("");
@@ -1580,6 +1582,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("talzintan");
+                  setColor("#58ff66")
                   setFormVisible(true);
                 }}
               >
@@ -1650,6 +1653,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("loma");
+                  setColor("#adf7b3")
                   setFormVisible(true);
                 }}
               >
@@ -1696,6 +1700,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("tezotepec");
+                  setColor("#eb9d36")
                   setFormVisible(true);
                 }}
               >
@@ -1766,6 +1771,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("calicapan");
+                  setColor("#00c3ff")
                   setFormVisible(true);
                 }}
               >
@@ -1836,6 +1842,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("sosa escuela");
+                  setColor("#ea00ff")
                   setFormVisible(true);
                 }}
               >
@@ -1906,6 +1913,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("san isidro");
+                  setColor("#9c9c9c")
                   setFormVisible(true);
                 }}
               >
@@ -1976,6 +1984,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("tacopan");
+                  setColor("#fffb00")
                   setFormVisible(true);
                 }}
               >
@@ -2025,6 +2034,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("tequimila");
+                  setColor("#a6ff00")
                   setFormVisible(true);
                 }}
               >
@@ -2074,6 +2084,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("quinta");
+                  setColor("#6ca700")
                   setFormVisible(true);
                 }}
               >
@@ -2121,6 +2132,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("calanorte");
+                  setColor("#006100")
                   setFormVisible(true);
                 }}
               >
@@ -2170,6 +2182,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("pajaco");
+                  setColor("#ff0000")
                   setFormVisible(true);
                 }}
               >
@@ -2217,6 +2230,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("analco");
+                  setColor("#0051ff")
                   setFormVisible(true);
                 }}
               >
@@ -2264,6 +2278,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("yopi");
+                  setColor("#9350ff")
                   setFormVisible(true);
                 }}
               >
@@ -2311,6 +2326,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("otra");
+                  setColor("#ffffff")
                   setFormVisible(true);
                 }}
               >

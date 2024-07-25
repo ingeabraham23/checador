@@ -26,6 +26,7 @@ body {
   border: 1px solid #ccc; /* Borde */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra */
   border-radius: 8px; /* Esquinas redondeadas */
+  text-align: center;
 }
 
 .save-button-rojo {
@@ -521,13 +522,13 @@ table {
 
 .ruta-display {
   margin-top: 0px;
-  padding: 2px;
   font-weight: bold;
   border: 1px solid #ccc;
+  margin: 0px;
   border-radius: 4px;
   background-color: #9dff00;
   color: #000000;
-  font-size: 40px;
+  font-size: 20px;
 }
 
 .floating-list-talzintan {
@@ -1269,7 +1270,7 @@ table {
   width: 100%;
   cursor: pointer;
   width: 80px;
-  height: 30px;
+  height: 40px;
 
   text-align: center;
   color: #ffffff;
@@ -1315,9 +1316,10 @@ table {
 .custom-datetime-input {
   padding: 2px;
   border-radius: 5px;
+  width: 200px;
   background-color: #9350ff;
   border: 1px solid #cccccc;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .custom-datetime-input:disabled {
@@ -1334,6 +1336,13 @@ table {
   border-radius: 5px; /* Agrega bordes redondeados */
   cursor: pointer; /* Cambia el cursor al pasar por encima */
   transition: background-color 0.3s ease; /* Agrega una transición */
-  font-weight: bold;
+}
+
+.hora-registro-container{
+  display: flex;
+  text-align: center;
+  color: #000;
+  padding: 5px;
+  background-color: #ffffff;
 }
 

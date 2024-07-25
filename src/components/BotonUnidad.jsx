@@ -3,8 +3,8 @@ import React from 'react';
 import './BotonUnidad.css';
 
 // eslint-disable-next-line react/prop-types
-const BotonUnidad = ({ unidad, onClick, disabled }) => (
-  <button onClick={onClick} disabled={disabled} className='boton-unidad'>
+const BotonUnidad = ({ unidad, onClick, disabled, invisible }) => (
+  <button onClick={onClick} disabled={disabled} className={`boton-unidad ${ invisible ? 'invisible' : ''}`}>
     {unidad}
   </button>
 );

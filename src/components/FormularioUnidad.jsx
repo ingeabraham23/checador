@@ -17,7 +17,7 @@ const FormularioUnidad = ({ unidad, onGuardar, onCancelar }) => {
   };
 
   return (
-    <div className="form-container">
+    <div className="form-container-comision">
       <h3>Unidad {unidad}</h3>
       <form>
         <label>

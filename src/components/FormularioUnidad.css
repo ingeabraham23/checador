@@ -1,6 +1,6 @@
 /* FormularioUnidad.css */
 
-.form-container {
+.form-container-comision {
     position: fixed;
     top: 25%;
     left: 50%;
@@ -13,25 +13,25 @@
     max-width: 90%;
   }
   
-  .form-container h3 {
+  .form-container-comision h3 {
     margin-bottom: 20px;
     font-size: 30px;
     color: #333;
     text-align: center;
   }
   
-  .form-container form {
+  .form-container-comision form {
     display: flex;
     flex-direction: column;
   }
   
-  .form-container label {
+  .form-container-comision label {
     margin-bottom: 10px;
     font-size: 1em;
     color: #666;
   }
   
-  .form-container input {
+  .form-container-comision input {
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ddd;
@@ -39,7 +39,7 @@
     font-size: 4em;
   }
   
-  .form-container button {
+  .form-container-comision button {
     padding: 10px;
     margin-bottom: 10px;
     border: none;
@@ -48,46 +48,46 @@
     cursor: pointer;
   }
   
-  .form-container button:first-of-type {
+  .form-container-comision button:first-of-type {
     background-color: #bcff7d;
     color: #000000;
     border: 1px solid black;
     margin-bottom: 10px;
   }
   
-  .form-container button:nth-of-type(2) {
+  .form-container-comision button:nth-of-type(2) {
     background-color: #008cff;
     color: #fff;
     border: 1px solid black;
     margin-bottom: 10px;
   }
   
-  .form-container button:last-of-type {
+  .form-container-comision button:last-of-type {
     background-color: #ccc;
     border: 1px solid black;
     color: #333;
   }
   
-  .form-container button:hover {
+  .form-container-comision button:hover {
     opacity: 0.9;
   }
   
   @media (max-width: 600px) {
-    .form-container {
+    .form-container-comision {
       width: 70%;
       padding: 15px;
     }
   
-    .form-container h3 {
+    .form-container-comision h3 {
       font-size: 30px;
     }
   
-    .form-container input {
+    .form-container-comision input {
       font-size: 30px;
       width: 100px;
     }
   
-    .form-container button {
+    .form-container-comision button {
       font-size: 20px;
       padding: 8px;
     }

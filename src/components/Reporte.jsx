@@ -245,7 +245,10 @@ function TablaReporte() {
   };
 
   const handleGoToBottom = () => {
-    window.scrollTo(0, document.body.scrollHeight);
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth'
+    });
   };
 
   return (
@@ -344,6 +347,12 @@ function TablaReporte() {
           </div>
         </div>
       )}
+      <hr></hr>
+      <hr></hr>
+      <hr></hr>
+      <hr></hr>
+      <hr></hr>
+      <hr></hr>
     </div>
   );
 }

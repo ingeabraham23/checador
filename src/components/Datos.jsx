@@ -10,6 +10,7 @@ import {
   faCircleXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import RespaldoYRestauracion from "./RespaldoYRestauracion";
 
 function Datos() {
   // Función para limpiar la tabla de unidades
@@ -30,6 +31,7 @@ function Datos() {
 
   return (
     <div>
+      <RespaldoYRestauracion></RespaldoYRestauracion>
       <div>
         <h2>¡Advertencia: Antes de borrar datos asegurate de que ya no los necesitas. Esta acción no se puede deshacer 🤯!</h2>
         <div className="contenedor-botones">
@@ -40,6 +42,7 @@ function Datos() {
         </button>
         </div>
       </div>
+      
     </div>
   );
 }

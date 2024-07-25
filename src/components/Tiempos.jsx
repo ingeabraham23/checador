@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Tiempos.css"; // Asegúrate de tener el archivo CSS para los estilos
 import db from "../db";
+import ClockButton from "./Reloj";
 
 import html2canvas from "html2canvas";
 
@@ -1502,6 +1503,8 @@ const UnidadesComponent = () => {
       {isFormVisible && (
         <div>
           <div className="form-container">
+            <ClockButton></ClockButton>
+            <div className="ruta-display" style={{ backgroundColor: color }}>{ruta}</div>
             <form
               className="add-form"
               onSubmit={(e) => {
@@ -1509,7 +1512,7 @@ const UnidadesComponent = () => {
                 agregarUnidad();
               }}
             >
-              <div className="ruta-display">{ruta}</div>
+              
               <div className="form-buttons">
                 <label>
                   <input
@@ -1549,7 +1552,7 @@ const UnidadesComponent = () => {
               </div>
 
               <div className="hora-registro-container">
-                <label>Hora de Registro:</label>
+                <label></label>
                 {isHoraVisible && (
                   <input
                     className="custom-datetime-input"

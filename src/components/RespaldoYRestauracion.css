@@ -43,9 +43,16 @@
     transition: background-color 0.3s;
   }
   
-  .button.backup {
+  .button-backup {
     background-color: #3498db;
     color: #fff;
+    font-size: 20px;
+  }
+
+  .button-backup-chedraui {
+    background-color: #ff8800;
+    color: #fff;
+    font-size: 20px;
   }
   
   .button.restore {

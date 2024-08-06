@@ -36,10 +36,141 @@ function RespaldoYRestauracion() {
       // Crea una URL para el Blob
       const url = URL.createObjectURL(blob);
 
+      const currentDate = new Date(); // Obtener la fecha y hora actual
+    const days = [
+      "Domingo",
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado",
+    ]; // Obtener los nombres de los días y meses en español
+    const months = [
+      "enero",
+      "febrero",
+      "marzo",
+      "abril",
+      "mayo",
+      "junio",
+      "julio",
+      "agosto",
+      "septiembre",
+      "octubre",
+      "noviembre",
+      "diciembre",
+    ];
+    // Función para convertir la hora de formato 24 horas a formato de 12 horas
+    const get12HourFormat = (hour) => {
+      return hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+    };
+    // Formatear la fecha y hora actual en el formato deseado
+    const dayOfWeek = days[currentDate.getDay()];
+    const dayOfMonth = currentDate.getDate();
+    const month = months[currentDate.getMonth()];
+    const year = currentDate.getFullYear();
+    const hours = get12HourFormat(currentDate.getHours());
+    const minutesWithLeadingZero = currentDate
+      .getMinutes()
+      .toString()
+      .padStart(2, "0");
+
+    const amOrPm = currentDate.getHours() >= 12 ? "pm" : "am";
+    const formattedDate = `Respaldo Internado ${dayOfWeek} ${dayOfMonth} de ${month} de ${year} a las ${hours}-${minutesWithLeadingZero} ${amOrPm}`;
+
+    // Guardar el IMAGEN con el nombre de archivo formateado
+    const filename = `${formattedDate}`;
+
       // Crea un elemento <a> temporal para la descarga
       const a = document.createElement("a");
       a.href = url;
-      a.download = "RespaldoChecador.json";
+      a.download = filename;
+
+      // Simula un clic en el enlace para iniciar la descarga
+      a.click();
+
+      // Limpia la URL del objeto Blob
+      URL.revokeObjectURL(url);
+
+      toast.success("Base de datos respaldada correctamente");
+    } catch (error) {
+      // Maneja los errores de manera adecuada, por ejemplo, mostrando un mensaje al usuario
+      toast.error("Error al respaldar la base de datos:", error);
+    }
+  };
+
+   // Función para respaldar la base de datos en un Archivo JSON
+   const handleBackupChedraui = async () => {
+    try {
+      // Abre la conexión a la base de datos
+      await db.open();
+
+      // Obtiene los datos de personas desde la base de datos
+      const unidades = await db.unidades.toArray();
+
+      // Combina los datos de personas y encabezado en un objeto
+      const backupData = {
+        unidades,
+      };
+
+      // Convierte el objeto a formato JSON con formato legible
+      const jsonData = JSON.stringify(backupData, null, 2);
+
+      // Crea un objeto Blob a partir del JSON
+      const blob = new Blob([jsonData], { type: "application/json" });
+
+      // Crea una URL para el Blob
+      const url = URL.createObjectURL(blob);
+
+      const currentDate = new Date(); // Obtener la fecha y hora actual
+    const days = [
+      "Domingo",
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado",
+    ]; // Obtener los nombres de los días y meses en español
+    const months = [
+      "enero",
+      "febrero",
+      "marzo",
+      "abril",
+      "mayo",
+      "junio",
+      "julio",
+      "agosto",
+      "septiembre",
+      "octubre",
+      "noviembre",
+      "diciembre",
+    ];
+    // Función para convertir la hora de formato 24 horas a formato de 12 horas
+    const get12HourFormat = (hour) => {
+      return hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+    };
+    // Formatear la fecha y hora actual en el formato deseado
+    const dayOfWeek = days[currentDate.getDay()];
+    const dayOfMonth = currentDate.getDate();
+    const month = months[currentDate.getMonth()];
+    const year = currentDate.getFullYear();
+    const hours = get12HourFormat(currentDate.getHours());
+    const minutesWithLeadingZero = currentDate
+      .getMinutes()
+      .toString()
+      .padStart(2, "0");
+
+    const amOrPm = currentDate.getHours() >= 12 ? "pm" : "am";
+    const formattedDate = `Respaldo Chedraui ${dayOfWeek} ${dayOfMonth} de ${month} de ${year} a las ${hours}-${minutesWithLeadingZero} ${amOrPm}`;
+
+    // Guardar el IMAGEN con el nombre de archivo formateado
+    const filename = `${formattedDate}`;
+
+      // Crea un elemento <a> temporal para la descarga
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
 
       // Simula un clic en el enlace para iniciar la descarga
       a.click();
@@ -183,22 +314,25 @@ function RespaldoYRestauracion() {
       <hr></hr>
       <h3>Crear Respaldo de la Base de Datos</h3>
       <div className="button-container">
-        <button className="button backup" onClick={handleBackup}>
-          Crear respaldo
+        <button className="button-backup" onClick={handleBackup}>
+          Crear respaldo Internado
+        </button>
+        <button className="button-backup-chedraui" onClick={handleBackupChedraui}>
+          Crear respaldo Chedraui
         </button>
       </div>
       <hr></hr>
       <h3>Crear respaldo con 5 minutos menos</h3>
       <h3>Chedraui ▶ Internado</h3>
       <div className="button-container">
-        <button className="button backup" onClick={handleBackupWithAdjustedTime}>Crear respaldo con -5 minutos</button>
+        <button className="button-backup" onClick={handleBackupWithAdjustedTime}>Crear respaldo con -5 minutos</button>
       </div>
 
       <hr></hr>
       <h3>Crear respaldo con 5 minutos mas</h3>
       <h3>Internado ▶ Chedraui</h3>
       <div className="button-container">
-        <button className="button backup" onClick={handleBackupWithAdjustedTimeMas}>Crear respaldo con +5 minutos</button>
+        <button className="button-backup" onClick={handleBackupWithAdjustedTimeMas}>Crear respaldo con +5 minutos</button>
       </div>
       {/* <div className="button-container"><button className="button load" onClick={handleLoadFromJSON}>Cargar datos guardados anteriormente</button></div> */}
     </div>

@@ -42,6 +42,13 @@ body {
   font-weight: bold;
 }
 
+/* Estilo para el botón deshabilitado */
+.save-button-rojo[disabled] {
+  background-color: gray;
+  cursor: not-allowed; /* Cambia el cursor al pasar sobre el botón deshabilitado */
+  opacity: 0.1; /* Cambia la opacidad para indicar que está deshabilitado */
+}
+
 .save-button-r3 {
   background-color: #ffffff; /* Cambia el color de fondo */
   color: rgb(0, 0, 0); /* Cambia el color del texto */
@@ -53,6 +60,12 @@ body {
   transition: background-color 0.3s ease; /* Agrega una transición */
   margin-right: 5px;
   font-weight: bold;
+}
+
+.save-button-r3[disabled] {
+  background-color: gray;
+  cursor: not-allowed; /* Cambia el cursor al pasar sobre el botón deshabilitado */
+  opacity: 0.1; /* Cambia la opacidad para indicar que está deshabilitado */
 }
 
 .cancel-button {

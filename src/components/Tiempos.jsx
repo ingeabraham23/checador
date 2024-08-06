@@ -8,6 +8,7 @@ import db from "../db";
 import ClockButton from "./Reloj";
 
 import html2canvas from "html2canvas";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const UnidadesComponent = () => {
   const [ruta, setRuta] = useState("");
@@ -477,10 +478,16 @@ const UnidadesComponent = () => {
     if (ruta && tipo && numeroUnidad) {
       const numeroUnidadNumerico = parseInt(numeroUnidad, 10);
       if (isNaN(numeroUnidadNumerico)) {
-        alert('Por favor ingresa un número válido para la unidad.');
+        alert("Por favor ingresa un número válido para la unidad.");
         return;
       }
-      await db.unidades.add({ ruta, tipo, numeroUnidad: numeroUnidadNumerico, horaRegistro, color });
+      await db.unidades.add({
+        ruta,
+        tipo,
+        numeroUnidad: numeroUnidadNumerico,
+        horaRegistro,
+        color,
+      });
       setRuta("");
       setTipo("");
       setNumeroUnidad("");
@@ -1497,6 +1504,106 @@ const UnidadesComponent = () => {
     return localISOTime;
   };
 
+  const formattedTextTacopan = `Te llevas:\r\n${
+    formatoTiempo(diferenciaTacopan)
+  } del ${
+    penultimaUnidadTacopan ? penultimaUnidadTacopan.numeroUnidad : "N/A"
+  } ${
+    penultimaUnidadTacopan ? penultimaUnidadTacopan.tipo : "N/A"
+  } Tacopan\r\n${
+    formatoTiempo(tiempoTranscurridoTalzintan)
+  } del ${
+    ultimaUnidadTalzintan ? ultimaUnidadTalzintan.numeroUnidad : "N/A"
+  } ${
+    ultimaUnidadTalzintan ? ultimaUnidadTalzintan.tipo : "N/A"
+  } Talzintan\r\n${
+    formatoTiempo(tiempoTranscurridoLoma)
+  } del ${
+    ultimaUnidadLoma ? ultimaUnidadLoma.numeroUnidad : "N/A"
+  } ${
+    ultimaUnidadLoma? ultimaUnidadLoma.tipo : "N/A"
+  } Loma\r\n${
+    formatoTiempo(tiempoTranscurridoCalanorte)
+  } del ${
+    ultimaUnidadCalanorte ? ultimaUnidadCalanorte.numeroUnidad : "N/A"
+  } ${
+    ultimaUnidadCalanorte? ultimaUnidadCalanorte.tipo : "N/A"
+  } Calanorte\r\n${
+    formatoTiempo(tiempoTranscurridoPajaco)
+  } del ${
+    ultimaUnidadPajaco? ultimaUnidadPajaco.numeroUnidad : "N/A"
+  } ${
+    ultimaUnidadPajaco? ultimaUnidadPajaco.tipo : "N/A"
+  } Pajaco`;
+
+  const formattedTextTalzintan = `Te llevas:\r\n${
+    formatoTiempo(diferenciaTalzintan)
+  } del ${
+    penultimaUnidadTalzintan ? penultimaUnidadTalzintan.numeroUnidad : "N/A"
+  } ${
+    penultimaUnidadTalzintan ? penultimaUnidadTalzintan.tipo : "N/A"
+  } Talzintan\r\n${
+    formatoTiempo(tiempoTranscurridoLoma)
+  } del ${
+    ultimaUnidadLoma? ultimaUnidadLoma.numeroUnidad : "N/A"
+  } ${
+    ultimaUnidadLoma ? ultimaUnidadLoma.tipo : "N/A"
+  } Loma\r\nDe rojo a rojo:\r\n${
+    formatoTiempo(diferenciaRojaTalzintan)
+  } del ${
+    penultimaUnidadRojaTalzintan ? penultimaUnidadRojaTalzintan.numeroUnidad : "N/A"
+  } ${
+    penultimaUnidadRojaTalzintan? penultimaUnidadRojaTalzintan.tipo : "N/A"
+  } `;
+
+  const formattedTextTezotepec = `Te llevas:\r\n${
+    formatoTiempo(diferenciaTezotepec)
+  } del ${
+    penultimaUnidadTezotepec ? penultimaUnidadTezotepec.numeroUnidad : "N/A"
+  } ${
+    penultimaUnidadTezotepec ? penultimaUnidadTezotepec.tipo : "N/A"
+  } Tezotepec\r\nDe rojo a rojo:\r\n${
+    formatoTiempo(diferenciaRojaTezotepec)
+  } del ${
+    penultimaUnidadRojaTezotepec ? penultimaUnidadRojaTezotepec.numeroUnidad : "N/A"
+  } `;
+
+  const formattedTextCalicapan = `Te llevas:\r\n${
+    formatoTiempo(diferenciaCalicapan)
+  } del ${
+    penultimaUnidadCalicapan ? penultimaUnidadCalicapan.numeroUnidad : "N/A"
+  } ${
+    penultimaUnidadCalicapan ? penultimaUnidadCalicapan.tipo : "N/A"
+  } Calicapan\r\nDe rojo a rojo:\r\n${
+    formatoTiempo(diferenciaRojaCalicapan)
+  } del ${
+    penultimaUnidadRojaCalicapan ? penultimaUnidadRojaCalicapan.numeroUnidad : "N/A"
+  } `;
+
+  const formattedTextSosaEscuela = `Te llevas:\r\n${
+    formatoTiempo(diferenciaSosaEscuela)
+  } del ${
+    penultimaUnidadSosaEscuela ? penultimaUnidadSosaEscuela.numeroUnidad : "N/A"
+  } ${
+    penultimaUnidadSosaEscuela ? penultimaUnidadSosaEscuela.tipo : "N/A"
+  } Sosa Escuela\r\nDe rojo a rojo:\r\n${
+    formatoTiempo(diferenciaRojaSosaEscuela)
+  } del ${
+    penultimaUnidadRojaSosaEscuela ? penultimaUnidadRojaSosaEscuela.numeroUnidad : "N/A"
+  } `;
+
+  const formattedTextSanIsidro = `Te llevas:\r\n${
+    formatoTiempo(diferenciaSanIsidro)
+  } del ${
+    penultimaUnidadSanIsidro ? penultimaUnidadSanIsidro.numeroUnidad : "N/A"
+  } ${
+    penultimaUnidadSanIsidro ? penultimaUnidadSanIsidro.tipo : "N/A"
+  } San Isidro\r\nDe rojo a rojo:\r\n${
+    formatoTiempo(diferenciaRojaSanIsidro)
+  } del ${
+    penultimaUnidadRojaSanIsidro ? penultimaUnidadRojaSanIsidro.numeroUnidad : "N/A"
+  } `;
+
   return (
     <div>
       {/*FORMULARIO FORMULARIO FORMULARIO FORMULARIO FORMULARIO FORMULARIO FORMULARIO FORMULARIO*/}
@@ -1504,7 +1611,9 @@ const UnidadesComponent = () => {
         <div>
           <div className="form-container">
             <ClockButton></ClockButton>
-            <div className="ruta-display" style={{ backgroundColor: color }}>{ruta}</div>
+            <div className="ruta-display" style={{ backgroundColor: color }}>
+              {ruta}
+            </div>
             <form
               className="add-form"
               onSubmit={(e) => {
@@ -1512,7 +1621,6 @@ const UnidadesComponent = () => {
                 agregarUnidad();
               }}
             >
-              
               <div className="form-buttons">
                 <label>
                   <input
@@ -1532,6 +1640,15 @@ const UnidadesComponent = () => {
                   className="save-button-rojo"
                   type="button"
                   onClick={() => handleAgregarTipo("rojo")}
+                  disabled={[
+                    "loma",
+                    "tequimila",
+                    "quinta",
+                    "calanorte",
+                    "pajaco",
+                    "analco",
+                    "yopi",
+                  ].includes(ruta)}
                 >
                   Rojo
                 </button>
@@ -1546,6 +1663,7 @@ const UnidadesComponent = () => {
                   className="save-button-r3"
                   type="button"
                   onClick={() => handleAgregarTipo("blanco")}
+                  disabled={["tacopan"].includes(ruta)}
                 >
                   R-3
                 </button>
@@ -1585,7 +1703,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("talzintan");
-                  setColor("#58ff66")
+                  setColor("#58ff66");
                   setFormVisible(true);
                 }}
               >
@@ -1595,16 +1713,15 @@ const UnidadesComponent = () => {
             </td>
             {ultimaUnidadTalzintan && (
               <td className="celda-talzintan">
-                {" "}
-                <button
-                  className={`${
-                    ultimaUnidadTalzintan.tipo === "blanco"
-                      ? "white-bg"
-                      : "red-bg"
-                  }`}
-                >
-                  {ultimaUnidadTalzintan.numeroUnidad}
-                </button>{" "}
+                <CopyToClipboard text={formattedTextTalzintan}>
+        <button
+          className={`${
+            ultimaUnidadTalzintan.tipo === "blanco" ? "white-bg" : "red-bg"
+          }`}
+        >
+          {ultimaUnidadTalzintan.numeroUnidad}
+        </button>
+      </CopyToClipboard>
                 {penultimaUnidadTalzintan && (
                   <>
                     <button className="button-se-lleva-talzintan">
@@ -1656,7 +1773,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("loma");
-                  setColor("#adf7b3")
+                  setColor("#adf7b3");
                   setFormVisible(true);
                 }}
               >
@@ -1703,7 +1820,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("tezotepec");
-                  setColor("#eb9d36")
+                  setColor("#eb9d36");
                   setFormVisible(true);
                 }}
               >
@@ -1713,16 +1830,15 @@ const UnidadesComponent = () => {
             </td>
             {ultimaUnidadTezotepec && (
               <td className="celda-tezotepec">
-                {" "}
-                <button
-                  className={`${
-                    ultimaUnidadTezotepec.tipo === "blanco"
-                      ? "white-bg"
-                      : "red-bg"
-                  }`}
-                >
-                  {ultimaUnidadTezotepec.numeroUnidad}
-                </button>{" "}
+                <CopyToClipboard text={formattedTextTezotepec}>
+        <button
+          className={`${
+            ultimaUnidadTezotepec.tipo === "blanco" ? "white-bg" : "red-bg"
+          }`}
+        >
+          {ultimaUnidadTezotepec.numeroUnidad}
+        </button>
+      </CopyToClipboard>
                 {penultimaUnidadTezotepec && (
                   <>
                     <button className="button-se-lleva-tezotepec">
@@ -1774,7 +1890,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("calicapan");
-                  setColor("#00c3ff")
+                  setColor("#00c3ff");
                   setFormVisible(true);
                 }}
               >
@@ -1784,16 +1900,15 @@ const UnidadesComponent = () => {
             </td>
             {ultimaUnidadCalicapan && (
               <td className="celda-calicapan">
-                {" "}
-                <button
-                  className={`${
-                    ultimaUnidadCalicapan.tipo === "blanco"
-                      ? "white-bg"
-                      : "red-bg"
-                  }`}
-                >
-                  {ultimaUnidadCalicapan.numeroUnidad}
-                </button>{" "}
+                <CopyToClipboard text={formattedTextCalicapan}>
+        <button
+          className={`${
+            ultimaUnidadCalicapan.tipo === "blanco" ? "white-bg" : "red-bg"
+          }`}
+        >
+          {ultimaUnidadCalicapan.numeroUnidad}
+        </button>
+      </CopyToClipboard>
                 {penultimaUnidadCalicapan && (
                   <>
                     <button className="button-se-lleva-calicapan">
@@ -1845,7 +1960,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("sosa escuela");
-                  setColor("#ea00ff")
+                  setColor("#ea00ff");
                   setFormVisible(true);
                 }}
               >
@@ -1855,16 +1970,15 @@ const UnidadesComponent = () => {
             </td>
             {ultimaUnidadSosaEscuela && (
               <td className="celda-sosa">
-                {" "}
-                <button
-                  className={`${
-                    ultimaUnidadSosaEscuela.tipo === "blanco"
-                      ? "white-bg"
-                      : "red-bg"
-                  }`}
-                >
-                  {ultimaUnidadSosaEscuela.numeroUnidad}
-                </button>{" "}
+                <CopyToClipboard text={formattedTextSosaEscuela}>
+        <button
+          className={`${
+            ultimaUnidadSosaEscuela.tipo === "blanco" ? "white-bg" : "red-bg"
+          }`}
+        >
+          {ultimaUnidadSosaEscuela.numeroUnidad}
+        </button>
+      </CopyToClipboard>
                 {penultimaUnidadSosaEscuela && (
                   <>
                     <button className="button-se-lleva-sosa">
@@ -1916,7 +2030,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("san isidro");
-                  setColor("#9c9c9c")
+                  setColor("#9c9c9c");
                   setFormVisible(true);
                 }}
               >
@@ -1926,16 +2040,15 @@ const UnidadesComponent = () => {
             </td>
             {ultimaUnidadSanIsidro && (
               <td className="celda-sanisidro">
-                {" "}
-                <button
-                  className={`${
-                    ultimaUnidadSanIsidro.tipo === "blanco"
-                      ? "white-bg"
-                      : "red-bg"
-                  }`}
-                >
-                  {ultimaUnidadSanIsidro.numeroUnidad}
-                </button>{" "}
+                <CopyToClipboard text={formattedTextSanIsidro}>
+        <button
+          className={`${
+            ultimaUnidadSanIsidro.tipo === "blanco" ? "white-bg" : "red-bg"
+          }`}
+        >
+          {ultimaUnidadSanIsidro.numeroUnidad}
+        </button>
+      </CopyToClipboard>
                 {penultimaUnidadSanIsidro && (
                   <>
                     <button className="button-se-lleva-sanisidro">
@@ -1987,7 +2100,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("tacopan");
-                  setColor("#fffb00")
+                  setColor("#fffb00");
                   setFormVisible(true);
                 }}
               >
@@ -1997,16 +2110,15 @@ const UnidadesComponent = () => {
             </td>
             {ultimaUnidadTacopan && (
               <td className="celda-tacopan">
-                {" "}
-                <button
-                  className={`${
-                    ultimaUnidadTacopan.tipo === "blanco"
-                      ? "white-bg"
-                      : "red-bg"
-                  }`}
-                >
-                  {ultimaUnidadTacopan.numeroUnidad}
-                </button>{" "}
+                <CopyToClipboard text={formattedTextTacopan}>
+        <button
+          className={`${
+            ultimaUnidadTacopan.tipo === "blanco" ? "white-bg" : "red-bg"
+          }`}
+        >
+          {ultimaUnidadTacopan.numeroUnidad}
+        </button>
+      </CopyToClipboard>
                 {penultimaUnidadTacopan && (
                   <>
                     <button className="button-se-lleva-tacopan">
@@ -2037,7 +2149,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("tequimila");
-                  setColor("#a6ff00")
+                  setColor("#a6ff00");
                   setFormVisible(true);
                 }}
               >
@@ -2087,7 +2199,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("quinta");
-                  setColor("#6ca700")
+                  setColor("#6ca700");
                   setFormVisible(true);
                 }}
               >
@@ -2135,7 +2247,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("calanorte");
-                  setColor("#006100")
+                  setColor("#006100");
                   setFormVisible(true);
                 }}
               >
@@ -2185,7 +2297,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("pajaco");
-                  setColor("#ff0000")
+                  setColor("#ff0000");
                   setFormVisible(true);
                 }}
               >
@@ -2233,7 +2345,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("analco");
-                  setColor("#0051ff")
+                  setColor("#0051ff");
                   setFormVisible(true);
                 }}
               >
@@ -2281,7 +2393,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("yopi");
-                  setColor("#9350ff")
+                  setColor("#9350ff");
                   setFormVisible(true);
                 }}
               >
@@ -2329,7 +2441,7 @@ const UnidadesComponent = () => {
                 className="boton-cronometro"
                 onClick={() => {
                   setRuta("otra");
-                  setColor("#ffffff")
+                  setColor("#ffffff");
                   setFormVisible(true);
                 }}
               >
@@ -2890,8 +3002,6 @@ const UnidadesComponent = () => {
         )}
       </div>
 
-      
-
       <div>
         {mostrarListaPajaco && (
           <div className="floating-list-pajaco">
@@ -3050,10 +3160,7 @@ const UnidadesComponent = () => {
                   ))}
               </tbody>
             </table>
-            <button
-              className="close-button"
-              onClick={handleDownloadImageYopi}
-            >
+            <button className="close-button" onClick={handleDownloadImageYopi}>
               📸 Capturar
             </button>
           </div>
@@ -3098,16 +3205,12 @@ const UnidadesComponent = () => {
                   ))}
               </tbody>
             </table>
-            <button
-              className="close-button"
-              onClick={handleDownloadImageOtra}
-            >
+            <button className="close-button" onClick={handleDownloadImageOtra}>
               📸 Capturar
             </button>
           </div>
         )}
       </div>
-
     </div>
   );
 };

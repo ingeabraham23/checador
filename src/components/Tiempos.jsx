@@ -15,6 +15,13 @@ const UnidadesComponent = () => {
   const [tipo, setTipo] = useState("");
   const [numeroUnidad, setNumeroUnidad] = useState("");
   const [isFormVisible, setFormVisible] = useState(false);
+  const [menuVisibleTalzintan, setMenuVisibleTalzintan] = useState(false);
+  const [menuVisibleLoma, setMenuVisibleLoma] = useState(false);
+  const [menuVisibleTezotepec, setMenuVisibleTezotepec] = useState(false);
+  const [menuVisibleCalicapan, setMenuVisibleCalicapan] = useState(false);
+  const [menuVisibleSosaEscuela, setMenuVisibleSosaEscuela] = useState(false);
+  const [menuVisibleSanIsidro, setMenuVisibleSanIsidro] = useState(false);
+
   const inputRef = useRef(null);
   const [numerosTalzintan, setnumerosTalzintan] = useState([]);
   const [mostrarListaTalzintan, setMostrarListaTalzintan] = useState(false);
@@ -529,6 +536,19 @@ const UnidadesComponent = () => {
     return `${minutos < 10 ? "0" : ""}${minutos}:${
       segundosRestantes < 10 ? "0" : ""
     }${segundosRestantes}`;
+  };
+
+  const formatoTiempoRedondeado = (segundos) => {
+    const minutos = Math.floor(segundos / 60); // Minutos completos
+    const segundosRestantes = segundos % 60; // Segundos restantes
+    const medioMinutoExtra = segundosRestantes > 30 ? 1 : 0; // Redondear al medio minuto mayor
+    const totalMinutos = minutos + medioMinutoExtra; // Minutos totales redondeados
+
+    if (segundosRestantes > 0 && segundosRestantes <= 30) {
+      return `*${minutos} y ½* min.`;
+    } else {
+      return `*${totalMinutos}* min.`;
+    }
   };
 
   const handleObtenerUnidadesTalzintan = async () => {
@@ -1504,105 +1524,425 @@ const UnidadesComponent = () => {
     return localISOTime;
   };
 
-  const formattedTextTacopan = `Te llevas:\r\n${
-    formatoTiempo(diferenciaTacopan)
-  } del ${
-    penultimaUnidadTacopan ? penultimaUnidadTacopan.numeroUnidad : "N/A"
-  } ${
-    penultimaUnidadTacopan ? penultimaUnidadTacopan.tipo : "N/A"
-  } Tacopan\r\n${
-    formatoTiempo(tiempoTranscurridoTalzintan)
-  } del ${
+  const formattedTextTacopanAlMomento = `*Tacopan al momento:*\r\n\r\n- ${formatoTiempoRedondeado(
+    tiempoTranscurridoTacopan
+  )} del *${ultimaUnidadTacopan ? ultimaUnidadTacopan.numeroUnidad : "N/A"}* *${
+    ultimaUnidadTacopan ? ultimaUnidadTacopan.tipo : "N/A"
+  }* _Tacopan_\r\n\r\n- ${formatoTiempoRedondeado(
+    tiempoTranscurridoTalzintan
+  )} del *${
     ultimaUnidadTalzintan ? ultimaUnidadTalzintan.numeroUnidad : "N/A"
-  } ${
+  }* *${
     ultimaUnidadTalzintan ? ultimaUnidadTalzintan.tipo : "N/A"
-  } Talzintan\r\n${
-    formatoTiempo(tiempoTranscurridoLoma)
-  } del ${
+  }* _Talzintan_\r\n- ${formatoTiempoRedondeado(tiempoTranscurridoLoma)} del *${
     ultimaUnidadLoma ? ultimaUnidadLoma.numeroUnidad : "N/A"
-  } ${
-    ultimaUnidadLoma? ultimaUnidadLoma.tipo : "N/A"
-  } Loma\r\n${
-    formatoTiempo(tiempoTranscurridoCalanorte)
-  } del ${
-    ultimaUnidadCalanorte ? ultimaUnidadCalanorte.numeroUnidad : "N/A"
-  } ${
-    ultimaUnidadCalanorte? ultimaUnidadCalanorte.tipo : "N/A"
-  } Calanorte\r\n${
-    formatoTiempo(tiempoTranscurridoPajaco)
-  } del ${
-    ultimaUnidadPajaco? ultimaUnidadPajaco.numeroUnidad : "N/A"
-  } ${
-    ultimaUnidadPajaco? ultimaUnidadPajaco.tipo : "N/A"
-  } Pajaco`;
-
-  const formattedTextTalzintan = `Te llevas:\r\n${
-    formatoTiempo(diferenciaTalzintan)
-  } del ${
-    penultimaUnidadTalzintan ? penultimaUnidadTalzintan.numeroUnidad : "N/A"
-  } ${
-    penultimaUnidadTalzintan ? penultimaUnidadTalzintan.tipo : "N/A"
-  } Talzintan\r\n${
-    formatoTiempo(tiempoTranscurridoLoma)
-  } del ${
-    ultimaUnidadLoma? ultimaUnidadLoma.numeroUnidad : "N/A"
-  } ${
+  }* *${
     ultimaUnidadLoma ? ultimaUnidadLoma.tipo : "N/A"
-  } Loma\r\nDe rojo a rojo:\r\n${
-    formatoTiempo(diferenciaRojaTalzintan)
-  } del ${
-    penultimaUnidadRojaTalzintan ? penultimaUnidadRojaTalzintan.numeroUnidad : "N/A"
-  } ${
-    penultimaUnidadRojaTalzintan? penultimaUnidadRojaTalzintan.tipo : "N/A"
-  } `;
+  }* _Loma_\r\n\r\n- ${formatoTiempoRedondeado(
+    tiempoTranscurridoCalanorte
+  )} del *${
+    ultimaUnidadCalanorte ? ultimaUnidadCalanorte.numeroUnidad : "N/A"
+  }* *${
+    ultimaUnidadCalanorte ? ultimaUnidadCalanorte.tipo : "N/A"
+  }* _Calanorte_\r\n- ${formatoTiempoRedondeado(
+    tiempoTranscurridoPajaco
+  )} del *${ultimaUnidadPajaco ? ultimaUnidadPajaco.numeroUnidad : "N/A"}* *${
+    ultimaUnidadPajaco ? ultimaUnidadPajaco.tipo : "N/A"
+  }* _Pajaco_\r\n© _JoyBoy._`;
 
-  const formattedTextTezotepec = `Te llevas:\r\n${
-    formatoTiempo(diferenciaTezotepec)
-  } del ${
-    penultimaUnidadTezotepec ? penultimaUnidadTezotepec.numeroUnidad : "N/A"
-  } ${
-    penultimaUnidadTezotepec ? penultimaUnidadTezotepec.tipo : "N/A"
-  } Tezotepec\r\nDe rojo a rojo:\r\n${
-    formatoTiempo(diferenciaRojaTezotepec)
-  } del ${
-    penultimaUnidadRojaTezotepec ? penultimaUnidadRojaTezotepec.numeroUnidad : "N/A"
-  } `;
+  const formattedTextTacopanTeLlevas = `*Tacopan te llevas:*\r\n\r\n- ${formatoTiempoRedondeado(
+    diferenciaTacopan
+  )} del *${
+    penultimaUnidadTacopan ? penultimaUnidadTacopan.numeroUnidad : "N/A"
+  }* *${
+    penultimaUnidadTacopan ? penultimaUnidadTacopan.tipo : "N/A"
+  }* _Tacopan_\r\n\r\n- ${formatoTiempoRedondeado(
+    tiempoTranscurridoTalzintan
+  )} del *${
+    ultimaUnidadTalzintan ? ultimaUnidadTalzintan.numeroUnidad : "N/A"
+  }* *${
+    ultimaUnidadTalzintan ? ultimaUnidadTalzintan.tipo : "N/A"
+  }* _Talzintan_\r\n- ${formatoTiempoRedondeado(tiempoTranscurridoLoma)} del *${
+    ultimaUnidadLoma ? ultimaUnidadLoma.numeroUnidad : "N/A"
+  }* *${
+    ultimaUnidadLoma ? ultimaUnidadLoma.tipo : "N/A"
+  }* _Loma_\r\n\r\n- ${formatoTiempoRedondeado(
+    tiempoTranscurridoCalanorte
+  )} del *${
+    ultimaUnidadCalanorte ? ultimaUnidadCalanorte.numeroUnidad : "N/A"
+  }* *${
+    ultimaUnidadCalanorte ? ultimaUnidadCalanorte.tipo : "N/A"
+  }* _Calanorte_\r\n- ${formatoTiempoRedondeado(
+    tiempoTranscurridoPajaco
+  )} del *${ultimaUnidadPajaco ? ultimaUnidadPajaco.numeroUnidad : "N/A"}* *${
+    ultimaUnidadPajaco ? ultimaUnidadPajaco.tipo : "N/A"
+  }* _Pajaco_\r\n© _JoyBoy._`;
 
-  const formattedTextCalicapan = `Te llevas:\r\n${
-    formatoTiempo(diferenciaCalicapan)
-  } del ${
-    penultimaUnidadCalicapan ? penultimaUnidadCalicapan.numeroUnidad : "N/A"
-  } ${
-    penultimaUnidadCalicapan ? penultimaUnidadCalicapan.tipo : "N/A"
-  } Calicapan\r\nDe rojo a rojo:\r\n${
-    formatoTiempo(diferenciaRojaCalicapan)
-  } del ${
-    penultimaUnidadRojaCalicapan ? penultimaUnidadRojaCalicapan.numeroUnidad : "N/A"
-  } `;
+  // --- FUNCIONES AUXILIARES PARA EL COPY-PASTE
+  const formatUnidadInfo = (tiempo, unidad, ubicacion) =>
+    `${formatoTiempoRedondeado(tiempo)} del *${
+      unidad?.numeroUnidad || "N/A"
+    }* *${unidad?.tipo || "N/A"}* ${ubicacion ? `_${ubicacion}_` : ""}`;
 
-  const formattedTextSosaEscuela = `Te llevas:\r\n${
-    formatoTiempo(diferenciaSosaEscuela)
-  } del ${
-    penultimaUnidadSosaEscuela ? penultimaUnidadSosaEscuela.numeroUnidad : "N/A"
-  } ${
-    penultimaUnidadSosaEscuela ? penultimaUnidadSosaEscuela.tipo : "N/A"
-  } Sosa Escuela\r\nDe rojo a rojo:\r\n${
-    formatoTiempo(diferenciaRojaSosaEscuela)
-  } del ${
-    penultimaUnidadRojaSosaEscuela ? penultimaUnidadRojaSosaEscuela.numeroUnidad : "N/A"
-  } `;
+  const formatUnidadInfo2 = (unidad, ubicacion) =>
+    `*${unidad?.numeroUnidad || "N/A"}* *${unidad?.tipo || "N/A"}* ${
+      ubicacion ? `_${ubicacion}_` : ""
+    }`;
 
-  const formattedTextSanIsidro = `Te llevas:\r\n${
-    formatoTiempo(diferenciaSanIsidro)
-  } del ${
-    penultimaUnidadSanIsidro ? penultimaUnidadSanIsidro.numeroUnidad : "N/A"
-  } ${
-    penultimaUnidadSanIsidro ? penultimaUnidadSanIsidro.tipo : "N/A"
-  } San Isidro\r\nDe rojo a rojo:\r\n${
-    formatoTiempo(diferenciaRojaSanIsidro)
-  } del ${
-    penultimaUnidadRojaSanIsidro ? penultimaUnidadRojaSanIsidro.numeroUnidad : "N/A"
-  } `;
+  // COPY-PASTE TALZINTAN --  COPY-PASTE TALZINTAN --  COPY-PASTE TALZINTAN --  COPY-PASTE TALZINTAN --
+  const formattedTextTalzintanAlMomento =
+    `ℹ *Talzintan al momento:*\r\n\r\n` +
+    `- ${formatUnidadInfo(
+      tiempoTranscurridoTalzintan,
+      ultimaUnidadTalzintan,
+      "Talzintan"
+    )}\r\n\r\n` +
+    `- *El se llevo:* ${formatUnidadInfo(
+      diferenciaTalzintan,
+      penultimaUnidadTalzintan
+    )}\r\n\r\n` +
+    `- *Y del loma hay:* ${formatUnidadInfo(
+      tiempoTranscurridoLoma,
+      ultimaUnidadLoma,
+      "Loma"
+    )}\r\n\r\n` +
+    `- *Del rojo talzintan hay:* ${formatUnidadInfo(
+      tiempoTranscurridoRojaTalzintan,
+      ultimaUnidadRojaTalzintan
+    )}\r\n© _JoyBoy._`;
+
+  const formattedTextTalzintanEstaPasando =
+    `🚨 *Talzintan esta pasando:*\r\n\r\n` +
+    `- ${formatUnidadInfo2(ultimaUnidadTalzintan, "Talzintan")}\r\n\r\n` +
+    `*El se lleva:*\r\n\r\n` +
+    `- ${formatoTiempoRedondeado(diferenciaTalzintan)} del ${formatUnidadInfo2(
+      penultimaUnidadTalzintan,
+      "Talzintan"
+    )}\r\n\r\n` +
+    `- y ${formatoTiempoRedondeado(
+      tiempoTranscurridoLoma
+    )} del ${formatUnidadInfo2(ultimaUnidadLoma, "Loma")}\r\n© _JoyBoy._`;
+
+  const formattedTextTalzintanTeLlevas =
+    `✅ *Talzintan te llevas:*\r\n\r\n` +
+    `- ${formatoTiempoRedondeado(diferenciaTalzintan)} del ${formatUnidadInfo2(
+      penultimaUnidadTalzintan,
+      "Talzintan"
+    )}\r\n\r\n` +
+    `- ${formatoTiempoRedondeado(
+      tiempoTranscurridoLoma
+    )} del ${formatUnidadInfo2(ultimaUnidadLoma, "Loma")}\r\n\r\n` +
+    `*De rojo a rojo:* \r\n\r\n` +
+    `- ${formatoTiempoRedondeado(
+      diferenciaRojaTalzintan
+    )} del ${formatUnidadInfo2(
+      penultimaUnidadRojaTalzintan,
+      "Talzintan"
+    )}\r\n© _JoyBoy._`;
+
+  const formattedTextTalzintanAtrasDeTi =
+    `*Esta saliendo:*\r\n\r\n` +
+    `- ${formatoTiempoRedondeado(
+      diferenciaTalzintan
+    )} atras de ti ${formatUnidadInfo2(
+      ultimaUnidadTalzintan,
+      "Talzintan"
+    )}\r\n© _JoyBoy._`;
+
+  // COPY-PASTE LOMA --  COPY-PASTE LOMA --  COPY-PASTE LOMA --  COPY-PASTE LOMA --
+  const formattedTextLomaEstaPasando =
+    `🚨 *Loma esta pasando:*\r\n\r\n` +
+    `- ${formatUnidadInfo2(ultimaUnidadLoma, "Loma")}\r\n\r\n` +
+    `*El se lleva:*\r\n\r\n` +
+    `- ${formatoTiempoRedondeado(
+      tiempoTranscurridoTalzintan
+    )} del ${formatUnidadInfo2(ultimaUnidadTalzintan, "Talzintan")}\r\n\r\n` +
+    `- y ${formatoTiempoRedondeado(diferenciaLoma)} del ${formatUnidadInfo2(
+      penultimaUnidadLoma,
+      "Loma"
+    )}\r\n© _JoyBoy._`;
+
+  const formattedTextLomaAtrasDeTi =
+    `*Esta saliendo:*\r\n\r\n` +
+    `- ${formatoTiempoRedondeado(
+      tiempoTranscurridoTalzintan
+    )} atras de ti ${formatUnidadInfo2(
+      ultimaUnidadLoma,
+      "Loma"
+    )}\r\n© _JoyBoy._`;
+
+  // COPY-PASTE TEZOTEPEC --  COPY-PASTE TEZOTEPEC --  COPY-PASTE TEZOTEPEC --  COPY-PASTE TEZOTEPEC --
+  const formattedTextTezotepecAlMomento =
+    `ℹ *Tezotepec al momento:*\r\n\r\n` +
+    `- ${formatUnidadInfo(
+      tiempoTranscurridoTezotepec,
+      ultimaUnidadTezotepec,
+      "Tezotepec"
+    )}\r\n\r\n` +
+    `- *El se llevo:* ${formatUnidadInfo(
+      diferenciaTezotepec,
+      penultimaUnidadTezotepec
+    )}\r\n\r\n` +
+    `- *Del rojo tezotepec hay:* ${formatUnidadInfo(
+      tiempoTranscurridoRojaTezotepec,
+      ultimaUnidadRojaTezotepec
+    )}\r\n© _JoyBoy._`;
+
+  const formattedTextTezotepecEstaPasando =
+    `🚨 *Tezotepec esta pasando:*\r\n\r\n` +
+    `- ${formatUnidadInfo2(ultimaUnidadTezotepec, "Tezotepec")}\r\n\r\n` +
+    `*El se lleva:*\r\n\r\n` +
+    `- ${formatoTiempoRedondeado(diferenciaTezotepec)} del ${formatUnidadInfo2(
+      penultimaUnidadTezotepec,
+      "Tezotepec"
+    )}\r\n© _JoyBoy._`;
+
+  const formattedTextTezotepecTeLlevas =
+    `✅ *Tezotepec te llevas:*\r\n\r\n` +
+    `- ${formatoTiempoRedondeado(diferenciaTezotepec)} del ${formatUnidadInfo2(
+      penultimaUnidadTezotepec,
+      "Tezotepec"
+    )}\r\n\r\n` +
+    `- ${formatoTiempoRedondeado(
+      diferenciaRojaTezotepec
+    )} del ${formatUnidadInfo2(
+      penultimaUnidadRojaTezotepec,
+      "Tezotepec"
+    )}\r\n© _JoyBoy._`;
+
+  const formattedTextTezotepecAtrasDeTi =
+    `*Esta saliendo:*\r\n\r\n` +
+    `- ${formatoTiempoRedondeado(
+      diferenciaTezotepec
+    )} atras de ti ${formatUnidadInfo2(
+      ultimaUnidadTezotepec,
+      "Tezotepec"
+    )}\r\n© _JoyBoy._`;
+
+  // COPY-PASTE CALICAPAN --  COPY-PASTE CALICAPAN --  COPY-PASTE CALICAPAN --  COPY-PASTE CALICAPAN --
+  const formattedTextCalicapanAlMomento =
+    `ℹ *Calicapan al momento:*\r\n\r\n` +
+    `- ${formatUnidadInfo(
+      tiempoTranscurridoCalicapan,
+      ultimaUnidadCalicapan,
+      "Calicapan"
+    )}\r\n\r\n` +
+    `- *El se llevo:* ${formatUnidadInfo(
+      diferenciaCalicapan,
+      penultimaUnidadCalicapan
+    )}\r\n\r\n` +
+    `- *Del rojo Calicapan hay:* ${formatUnidadInfo(
+      tiempoTranscurridoRojaCalicapan,
+      ultimaUnidadRojaCalicapan
+    )}\r\n© _JoyBoy._`;
+
+  const formattedTextCalicapanEstaPasando =
+    `🚨 *Calicapan esta pasando:*\r\n\r\n` +
+    `- ${formatUnidadInfo2(ultimaUnidadCalicapan, "Calicapan")}\r\n\r\n` +
+    `*El se lleva:*\r\n\r\n` +
+    `- ${formatoTiempoRedondeado(diferenciaCalicapan)} del ${formatUnidadInfo2(
+      penultimaUnidadCalicapan,
+      "Calicapan"
+    )}\r\n© _JoyBoy._`;
+
+  const formattedTextCalicapanTeLlevas =
+    `✅ *Calicapan te llevas:*\r\n\r\n` +
+    `- ${formatoTiempoRedondeado(diferenciaCalicapan)} del ${formatUnidadInfo2(
+      penultimaUnidadCalicapan,
+      "Calicapan"
+    )}\r\n\r\n` +
+    `- ${formatoTiempoRedondeado(
+      diferenciaRojaCalicapan
+    )} del ${formatUnidadInfo2(
+      penultimaUnidadRojaCalicapan,
+      "Calicapan"
+    )}\r\n© _JoyBoy._`;
+
+  const formattedTextCalicapanAtrasDeTi =
+    `*Esta saliendo:*\r\n\r\n` +
+    `- ${formatoTiempoRedondeado(
+      diferenciaCalicapan
+    )} atras de ti ${formatUnidadInfo2(
+      ultimaUnidadCalicapan,
+      "Calicapan"
+    )}\r\n© _JoyBoy._`;
+
+  // COPY-PASTE SOSA ESCUELA --  COPY-PASTE SOSA ESCUELA --  COPY-PASTE SOSA ESCUELA --  COPY-PASTE SOSA ESCUELA --
+  const formattedTextSosaEscuelaAlMomento =
+    `ℹ *Sosa Escuela al momento:*\r\n\r\n` +
+    `- ${formatUnidadInfo(
+      tiempoTranscurridoSosaEscuela,
+      ultimaUnidadSosaEscuela,
+      "Sosa Escuela"
+    )}\r\n\r\n` +
+    `- *El se llevo:* ${formatUnidadInfo(
+      diferenciaSosaEscuela,
+      penultimaUnidadSosaEscuela
+    )}\r\n\r\n` +
+    `- *Del rojo Sosa Escuela hay:* ${formatUnidadInfo(
+      tiempoTranscurridoRojaSosaEscuela,
+      ultimaUnidadRojaSosaEscuela
+    )}\r\n© _JoyBoy._`;
+
+  const formattedTextSosaEscuelaEstaPasando =
+    `🚨 *Sosa Escuela esta pasando:*\r\n\r\n` +
+    `- ${formatUnidadInfo2(ultimaUnidadSosaEscuela, "Sosa Escuela")}\r\n\r\n` +
+    `*El se lleva:*\r\n\r\n` +
+    `- ${formatoTiempoRedondeado(
+      diferenciaSosaEscuela
+    )} del ${formatUnidadInfo2(
+      penultimaUnidadSosaEscuela,
+      "Sosa Escuela"
+    )}\r\n© _JoyBoy._`;
+
+  const formattedTextSosaEscuelaTeLlevas =
+    `✅ *Sosa Escuela te llevas:*\r\n\r\n` +
+    `- ${formatoTiempoRedondeado(
+      diferenciaSosaEscuela
+    )} del ${formatUnidadInfo2(
+      penultimaUnidadSosaEscuela,
+      "Sosa Escuela"
+    )}\r\n\r\n` +
+    `- ${formatoTiempoRedondeado(
+      diferenciaRojaSosaEscuela
+    )} del ${formatUnidadInfo2(
+      penultimaUnidadRojaSosaEscuela,
+      "Sosa Escuela"
+    )}\r\n© _JoyBoy._`;
+
+  const formattedTextSosaEscuelaAtrasDeTi =
+    `*Esta saliendo:*\r\n\r\n` +
+    `- ${formatoTiempoRedondeado(
+      diferenciaSosaEscuela
+    )} atras de ti ${formatUnidadInfo2(
+      ultimaUnidadSosaEscuela,
+      "Sosa Escuela"
+    )}\r\n© _JoyBoy._`;
+
+  // COPY-PASTE SAN ISIDRO --  COPY-PASTE SAN ISIDRO --  COPY-PASTE SAN ISIDRO --  COPY-PASTE SAN ISIDRO --
+  const formattedTextSanIsidroAlMomento =
+    `ℹ *San Isidro al momento:*\r\n\r\n` +
+    `- ${formatUnidadInfo(
+      tiempoTranscurridoSanIsidro,
+      ultimaUnidadSanIsidro,
+      "San Isidro"
+    )}\r\n\r\n` +
+    `- *El se llevo:* ${formatUnidadInfo(
+      diferenciaSanIsidro,
+      penultimaUnidadSanIsidro
+    )}\r\n\r\n` +
+    `- *Del rojo San Isidro hay:* ${formatUnidadInfo(
+      tiempoTranscurridoRojaSanIsidro,
+      ultimaUnidadRojaSanIsidro
+    )}\r\n© _JoyBoy._`;
+
+  const formattedTextSanIsidroEstaPasando =
+    `🚨 *San Isidro esta pasando:*\r\n\r\n` +
+    `- ${formatUnidadInfo2(ultimaUnidadSanIsidro, "San Isidro")}\r\n\r\n` +
+    `*El se lleva:*\r\n\r\n` +
+    `- ${formatoTiempoRedondeado(diferenciaSanIsidro)} del ${formatUnidadInfo2(
+      penultimaUnidadSanIsidro,
+      "San Isidro"
+    )}\r\n© _JoyBoy._`;
+
+  const formattedTextSanIsidroTeLlevas =
+    `✅ *San Isidro te llevas:*\r\n\r\n` +
+    `- ${formatoTiempoRedondeado(diferenciaSanIsidro)} del ${formatUnidadInfo2(
+      penultimaUnidadSanIsidro,
+      "San Isidro"
+    )}\r\n\r\n` +
+    `- ${formatoTiempoRedondeado(
+      diferenciaRojaSanIsidro
+    )} del ${formatUnidadInfo2(
+      penultimaUnidadRojaSanIsidro,
+      "San Isidro"
+    )}\r\n© _JoyBoy._`;
+
+  const formattedTextSanIsidroAtrasDeTi =
+    `*Esta saliendo:*\r\n\r\n` +
+    `- ${formatoTiempoRedondeado(
+      diferenciaSanIsidro
+    )} atras de ti ${formatUnidadInfo2(
+      ultimaUnidadSanIsidro,
+      "San Isidro"
+    )}\r\n© _JoyBoy._`;
+
+  const graficoPorcentajeTalzintan = (() => {
+    if (tiempoTranscurridoTalzintan <= 0) {
+      return "/ 0%";
+    } else if (tiempoTranscurridoTalzintan >= 300) {
+      return "////////// 100%"; // 10 diagonales para 100%
+    } else {
+      const porcentajeCalculado =
+        Math.ceil((tiempoTranscurridoTalzintan / 300) * 10) * 10; // Porcentaje múltiplo de 10
+      const numeroDiagonales = porcentajeCalculado / 10; // Una diagonal por cada 10%
+      return "/".repeat(numeroDiagonales) + ` ${porcentajeCalculado}%`;
+    }
+  })();
+
+  const graficoPorcentajeTezotepec = (() => {
+    if (tiempoTranscurridoTezotepec <= 0) {
+      return "/ 0%";
+    } else if (tiempoTranscurridoTezotepec >= 660) {
+      return "////////// 100%"; // 10 diagonales para 100%
+    } else {
+      const porcentajeCalculado =
+        Math.ceil((tiempoTranscurridoTezotepec / 660) * 10) * 10;
+      const numeroDiagonales = porcentajeCalculado / 10;
+      return "/".repeat(numeroDiagonales) + ` ${porcentajeCalculado}%`;
+    }
+  })();
+
+  const graficoPorcentajeCalicapan = (() => {
+    if (tiempoTranscurridoCalicapan <= 0) {
+      return "/ 0%";
+    } else if (tiempoTranscurridoCalicapan >= 660) {
+      return "////////// 100%"; // 10 diagonales para 100%
+    } else {
+      const porcentajeCalculado =
+        Math.ceil((tiempoTranscurridoCalicapan / 660) * 10) * 10;
+      const numeroDiagonales = porcentajeCalculado / 10;
+      return "/".repeat(numeroDiagonales) + ` ${porcentajeCalculado}%`;
+    }
+  })();
+
+  const graficoPorcentajeSosaEscuela = (() => {
+    if (tiempoTranscurridoSosaEscuela <= 0) {
+      return "/ 0%";
+    } else if (tiempoTranscurridoSosaEscuela >= 660) {
+      return "////////// 100%"; // 10 diagonales para 100%
+    } else {
+      const porcentajeCalculado =
+        Math.ceil((tiempoTranscurridoSosaEscuela / 660) * 10) * 10;
+      const numeroDiagonales = porcentajeCalculado / 10;
+      return "/".repeat(numeroDiagonales) + ` ${porcentajeCalculado}%`;
+    }
+  })();
+
+  const graficoPorcentajeSanIsidro = (() => {
+    if (tiempoTranscurridoSanIsidro <= 0) {
+      return "/ 0%";
+    } else if (tiempoTranscurridoSanIsidro >= 660) {
+      return "////////// 100%"; // 10 diagonales para 100%
+    } else {
+      const porcentajeCalculado =
+        Math.ceil((tiempoTranscurridoSanIsidro / 660) * 10) * 10;
+      const numeroDiagonales = porcentajeCalculado / 10;
+      return "/".repeat(numeroDiagonales) + ` ${porcentajeCalculado}%`;
+    }
+  })();
+
+  const textToCopyAmotac = `*Probabilidades AMOTAC:*\r\n- Talzintan:   ${formatoTiempo(
+    tiempoTranscurridoTalzintan
+  )} ${graficoPorcentajeTalzintan}\r\n- Tezotepec: ${formatoTiempo(
+    tiempoTranscurridoTezotepec
+  )} ${graficoPorcentajeTezotepec}\r\n- Calicapan:  ${formatoTiempo(
+    tiempoTranscurridoCalicapan
+  )} ${graficoPorcentajeCalicapan}\r\n- Sosa Escu:  ${formatoTiempo(
+    tiempoTranscurridoSosaEscuela
+  )} ${graficoPorcentajeSosaEscuela}\r\n- San Isidro:  ${formatoTiempo(
+    tiempoTranscurridoSanIsidro
+  )} ${graficoPorcentajeSanIsidro}\r\n© _JoyBoy._`;
 
   return (
     <div>
@@ -1692,9 +2032,441 @@ const UnidadesComponent = () => {
           </div>
         </div>
       )}
+      {/* Menú */}
+      {menuVisibleTalzintan && (
+        <div
+          style={{
+            position: "absolute", // Hace que el menú sea flotante
+            top: "50px", // Ajusta la posición vertical según el botón
+            left: "0", // Ajusta la posición horizontal según el contenedor
+            border: "1px solid #ccc",
+            borderRadius: "5px",
+            padding: "10px",
+            width: "200px",
+            background: "#f9f9f9",
+            zIndex: 1000, // Asegura que el menú esté sobre otros elementos
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Sombra para resaltar el menú
+            color: "black",
+          }}
+        >
+          <ul
+            style={{ listStyle: "none", padding: 0, margin: 0, fontSize: 40 }}
+          >
+            <b>Talzintan</b>
+            <li>
+              <CopyToClipboard text={formattedTextTalzintanAlMomento}>
+                <button
+                  onClick={() => setMenuVisibleTalzintan(false)}
+                  style={{ width: "100%", textAlign: "left" }}
+                  className="al-momento"
+                >
+                  Al momento...
+                </button>
+              </CopyToClipboard>
+            </li>
+            <li>
+              <CopyToClipboard text={formattedTextTalzintanEstaPasando}>
+                <button
+                  onClick={() => setMenuVisibleTalzintan(false)}
+                  className="esta-pasando"
+                  style={{ width: "100%", textAlign: "left" }}
+                >
+                  Esta pasando...
+                </button>
+              </CopyToClipboard>
+            </li>
+            <li>
+              <CopyToClipboard text={formattedTextTalzintanTeLlevas}>
+                <button
+                  onClick={() => setMenuVisibleTalzintan(false)}
+                  className="te-llevas"
+                  style={{ width: "100%", textAlign: "left" }}
+                >
+                  Te llevas...
+                </button>
+              </CopyToClipboard>
+            </li>
+            <li>
+              <CopyToClipboard text={formattedTextTalzintanAtrasDeTi}>
+                <button
+                  onClick={() => setMenuVisibleTalzintan(false)}
+                  className="atras-de-ti"
+                  style={{ width: "100%", textAlign: "left" }}
+                >
+                  Atras de ti...
+                </button>
+              </CopyToClipboard>
+            </li>
+          </ul>
+          <button
+            className="cerrar-copy-paste"
+            onClick={() => setMenuVisibleTalzintan(false)}
+          >
+            ❌ Cerrar
+          </button>
+        </div>
+      )}
+
+      {menuVisibleLoma && (
+        <div
+          style={{
+            position: "absolute", // Hace que el menú sea flotante
+            top: "50px", // Ajusta la posición vertical según el botón
+            left: "0", // Ajusta la posición horizontal según el contenedor
+            border: "1px solid #ccc",
+            borderRadius: "5px",
+            padding: "10px",
+            width: "200px",
+            background: "#f9f9f9",
+            zIndex: 1000, // Asegura que el menú esté sobre otros elementos
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Sombra para resaltar el menú
+            color: "black",
+          }}
+        >
+          <ul
+            style={{ listStyle: "none", padding: 0, margin: 0, fontSize: 40 }}
+          >
+            <b>Loma</b>
+            <li>
+              <CopyToClipboard text={formattedTextLomaEstaPasando}>
+                <button
+                  onClick={() => setMenuVisibleLoma(false)}
+                  className="esta-pasando"
+                  style={{ width: "100%", textAlign: "left" }}
+                >
+                  Esta pasando...
+                </button>
+              </CopyToClipboard>
+            </li>
+            <li>
+              <CopyToClipboard text={formattedTextLomaAtrasDeTi}>
+                <button
+                  onClick={() => setMenuVisibleLoma(false)}
+                  className="atras-de-ti"
+                  style={{ width: "100%", textAlign: "left" }}
+                >
+                  Atras de ti...
+                </button>
+              </CopyToClipboard>
+            </li>
+          </ul>
+          <button
+            className="cerrar-copy-paste"
+            onClick={() => setMenuVisibleLoma(false)}
+          >
+            ❌ Cerrar
+          </button>
+        </div>
+      )}
+
+      {menuVisibleTezotepec && (
+        <div
+          style={{
+            position: "absolute", // Hace que el menú sea flotante
+            top: "50px", // Ajusta la posición vertical según el botón
+            left: "0", // Ajusta la posición horizontal según el contenedor
+            border: "1px solid #ccc",
+            borderRadius: "5px",
+            padding: "10px",
+            width: "200px",
+            background: "#f9f9f9",
+            zIndex: 1000, // Asegura que el menú esté sobre otros elementos
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Sombra para resaltar el menú
+            color: "black",
+          }}
+        >
+          <ul
+            style={{ listStyle: "none", padding: 0, margin: 0, fontSize: 40 }}
+          >
+            <b>Tezotepec</b>
+            <li>
+              <CopyToClipboard text={formattedTextTezotepecAlMomento}>
+                <button
+                  onClick={() => setMenuVisibleTezotepec(false)}
+                  style={{ width: "100%", textAlign: "left" }}
+                  className="al-momento"
+                >
+                  Al momento...
+                </button>
+              </CopyToClipboard>
+            </li>
+            <li>
+              <CopyToClipboard text={formattedTextTezotepecEstaPasando}>
+                <button
+                  onClick={() => setMenuVisibleTezotepec(false)}
+                  className="esta-pasando"
+                  style={{ width: "100%", textAlign: "left" }}
+                >
+                  Esta pasando...
+                </button>
+              </CopyToClipboard>
+            </li>
+            <li>
+              <CopyToClipboard text={formattedTextTezotepecTeLlevas}>
+                <button
+                  onClick={() => setMenuVisibleTezotepec(false)}
+                  className="te-llevas"
+                  style={{ width: "100%", textAlign: "left" }}
+                >
+                  Te llevas...
+                </button>
+              </CopyToClipboard>
+            </li>
+            <li>
+              <CopyToClipboard text={formattedTextTezotepecAtrasDeTi}>
+                <button
+                  onClick={() => setMenuVisibleTezotepec(false)}
+                  className="atras-de-ti"
+                  style={{ width: "100%", textAlign: "left" }}
+                >
+                  Atras de ti...
+                </button>
+              </CopyToClipboard>
+            </li>
+          </ul>
+          <button
+            className="cerrar-copy-paste"
+            onClick={() => setMenuVisibleTezotepec(false)}
+          >
+            ❌ Cerrar
+          </button>
+        </div>
+      )}
+
+      {menuVisibleCalicapan && (
+        <div
+          style={{
+            position: "absolute", // Hace que el menú sea flotante
+            top: "50px", // Ajusta la posición vertical según el botón
+            left: "0", // Ajusta la posición horizontal según el contenedor
+            border: "1px solid #ccc",
+            borderRadius: "5px",
+            padding: "10px",
+            width: "200px",
+            background: "#f9f9f9",
+            zIndex: 1000, // Asegura que el menú esté sobre otros elementos
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Sombra para resaltar el menú
+            color: "black",
+          }}
+        >
+          <ul
+            style={{ listStyle: "none", padding: 0, margin: 0, fontSize: 40 }}
+          >
+            <b>Calicapan</b>
+            <li>
+              <CopyToClipboard text={formattedTextCalicapanAlMomento}>
+                <button
+                  onClick={() => setMenuVisibleCalicapan(false)}
+                  style={{ width: "100%", textAlign: "left" }}
+                  className="al-momento"
+                >
+                  Al momento...
+                </button>
+              </CopyToClipboard>
+            </li>
+            <li>
+              <CopyToClipboard text={formattedTextCalicapanEstaPasando}>
+                <button
+                  onClick={() => setMenuVisibleCalicapan(false)}
+                  className="esta-pasando"
+                  style={{ width: "100%", textAlign: "left" }}
+                >
+                  Esta pasando...
+                </button>
+              </CopyToClipboard>
+            </li>
+            <li>
+              <CopyToClipboard text={formattedTextCalicapanTeLlevas}>
+                <button
+                  onClick={() => setMenuVisibleCalicapan(false)}
+                  className="te-llevas"
+                  style={{ width: "100%", textAlign: "left" }}
+                >
+                  Te llevas...
+                </button>
+              </CopyToClipboard>
+            </li>
+            <li>
+              <CopyToClipboard text={formattedTextCalicapanAtrasDeTi}>
+                <button
+                  onClick={() => setMenuVisibleCalicapan(false)}
+                  className="atras-de-ti"
+                  style={{ width: "100%", textAlign: "left" }}
+                >
+                  Atras de ti...
+                </button>
+              </CopyToClipboard>
+            </li>
+          </ul>
+          <button
+            className="cerrar-copy-paste"
+            onClick={() => setMenuVisibleCalicapan(false)}
+          >
+            ❌ Cerrar
+          </button>
+        </div>
+      )}
+
+      {menuVisibleSosaEscuela && (
+        <div
+          style={{
+            position: "absolute", // Hace que el menú sea flotante
+            top: "50px", // Ajusta la posición vertical según el botón
+            left: "0", // Ajusta la posición horizontal según el contenedor
+            border: "1px solid #ccc",
+            borderRadius: "5px",
+            padding: "10px",
+            width: "240px",
+            background: "#f9f9f9",
+            zIndex: 1000, // Asegura que el menú esté sobre otros elementos
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Sombra para resaltar el menú
+            color: "black",
+          }}
+        >
+          <ul
+            style={{ listStyle: "none", padding: 0, margin: 0, fontSize: 40 }}
+          >
+            <b>Sosa Escuela</b>
+            <li>
+              <CopyToClipboard text={formattedTextSosaEscuelaAlMomento}>
+                <button
+                  onClick={() => setMenuVisibleSosaEscuela(false)}
+                  style={{ width: "100%", textAlign: "left" }}
+                  className="al-momento"
+                >
+                  Al momento...
+                </button>
+              </CopyToClipboard>
+            </li>
+            <li>
+              <CopyToClipboard text={formattedTextSosaEscuelaEstaPasando}>
+                <button
+                  onClick={() => setMenuVisibleSosaEscuela(false)}
+                  className="esta-pasando"
+                  style={{ width: "100%", textAlign: "left" }}
+                >
+                  Esta pasando...
+                </button>
+              </CopyToClipboard>
+            </li>
+            <li>
+              <CopyToClipboard text={formattedTextSosaEscuelaTeLlevas}>
+                <button
+                  onClick={() => setMenuVisibleSosaEscuela(false)}
+                  className="te-llevas"
+                  style={{ width: "100%", textAlign: "left" }}
+                >
+                  Te llevas...
+                </button>
+              </CopyToClipboard>
+            </li>
+            <li>
+              <CopyToClipboard text={formattedTextSosaEscuelaAtrasDeTi}>
+                <button
+                  onClick={() => setMenuVisibleSosaEscuela(false)}
+                  className="atras-de-ti"
+                  style={{ width: "100%", textAlign: "left" }}
+                >
+                  Atras de ti...
+                </button>
+              </CopyToClipboard>
+            </li>
+          </ul>
+          <button
+            className="cerrar-copy-paste"
+            onClick={() => setMenuVisibleSosaEscuela(false)}
+          >
+            ❌ Cerrar
+          </button>
+        </div>
+      )}
+
+      {menuVisibleSanIsidro && (
+        <div
+          style={{
+            position: "absolute", // Hace que el menú sea flotante
+            top: "50px", // Ajusta la posición vertical según el botón
+            left: "0", // Ajusta la posición horizontal según el contenedor
+            border: "1px solid #ccc",
+            borderRadius: "5px",
+            padding: "10px",
+            width: "200px",
+            background: "#f9f9f9",
+            zIndex: 1000, // Asegura que el menú esté sobre otros elementos
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Sombra para resaltar el menú
+            color: "black",
+          }}
+        >
+          <ul
+            style={{ listStyle: "none", padding: 0, margin: 0, fontSize: 40 }}
+          >
+            <b>San Isidro</b>
+            <li>
+              <CopyToClipboard text={formattedTextSanIsidroAlMomento}>
+                <button
+                  onClick={() => setMenuVisibleSanIsidro(false)}
+                  style={{ width: "100%", textAlign: "left" }}
+                  className="al-momento"
+                >
+                  Al momento...
+                </button>
+              </CopyToClipboard>
+            </li>
+            <li>
+              <CopyToClipboard text={formattedTextSanIsidroEstaPasando}>
+                <button
+                  onClick={() => setMenuVisibleSanIsidro(false)}
+                  className="esta-pasando"
+                  style={{ width: "100%", textAlign: "left" }}
+                >
+                  Esta pasando...
+                </button>
+              </CopyToClipboard>
+            </li>
+            <li>
+              <CopyToClipboard text={formattedTextSanIsidroTeLlevas}>
+                <button
+                  onClick={() => setMenuVisibleSanIsidro(false)}
+                  className="te-llevas"
+                  style={{ width: "100%", textAlign: "left" }}
+                >
+                  Te llevas...
+                </button>
+              </CopyToClipboard>
+            </li>
+            <li>
+              <CopyToClipboard text={formattedTextSanIsidroAtrasDeTi}>
+                <button
+                  onClick={() => setMenuVisibleSanIsidro(false)}
+                  className="atras-de-ti"
+                  style={{ width: "100%", textAlign: "left" }}
+                >
+                  Atras de ti...
+                </button>
+              </CopyToClipboard>
+            </li>
+          </ul>
+          <button
+            className="cerrar-copy-paste"
+            onClick={() => setMenuVisibleSanIsidro(false)}
+          >
+            ❌ Cerrar
+          </button>
+        </div>
+      )}
+
       {/* tabla rutas tabla rutas tabla rutas tabla rutas tabla rutas tabla rutas tabla rutas tabla rutas tabla rutas */}
       <table>
         <tbody>
+          <tr>
+            <td></td>
+            <td>
+              <CopyToClipboard text={textToCopyAmotac}>
+                <button className="amotac">Amotac</button>
+              </CopyToClipboard>
+            </td>
+          </tr>
+
           {/*FILA TALZINTAN  FILA TALZINTAN  FILA TALZINTAN  FILA TALZINTAN  FILA TALZINTAN  FILA TALZINTAN  */}
           <tr>
             <td></td>
@@ -1713,15 +2485,17 @@ const UnidadesComponent = () => {
             </td>
             {ultimaUnidadTalzintan && (
               <td className="celda-talzintan">
-                <CopyToClipboard text={formattedTextTalzintan}>
-        <button
-          className={`${
-            ultimaUnidadTalzintan.tipo === "blanco" ? "white-bg" : "red-bg"
-          }`}
-        >
-          {ultimaUnidadTalzintan.numeroUnidad}
-        </button>
-      </CopyToClipboard>
+                <button
+                  onClick={() => setMenuVisibleTalzintan(!menuVisibleTalzintan)}
+                  className={`${
+                    ultimaUnidadTalzintan.tipo === "blanco"
+                      ? "white-bg"
+                      : "red-bg"
+                  }`}
+                >
+                  {ultimaUnidadTalzintan.numeroUnidad}
+                </button>
+
                 {penultimaUnidadTalzintan && (
                   <>
                     <button className="button-se-lleva-talzintan">
@@ -1785,6 +2559,7 @@ const UnidadesComponent = () => {
               <td className="celda-loma">
                 {" "}
                 <button
+                  onClick={() => setMenuVisibleLoma(!menuVisibleLoma)}
                   className={`${
                     ultimaUnidadLoma.tipo === "blanco" ? "white-bg" : "red-bg"
                   }`}
@@ -1830,15 +2605,16 @@ const UnidadesComponent = () => {
             </td>
             {ultimaUnidadTezotepec && (
               <td className="celda-tezotepec">
-                <CopyToClipboard text={formattedTextTezotepec}>
-        <button
-          className={`${
-            ultimaUnidadTezotepec.tipo === "blanco" ? "white-bg" : "red-bg"
-          }`}
-        >
-          {ultimaUnidadTezotepec.numeroUnidad}
-        </button>
-      </CopyToClipboard>
+                <button
+                  onClick={() => setMenuVisibleTezotepec(!menuVisibleLoma)}
+                  className={`${
+                    ultimaUnidadTezotepec.tipo === "blanco"
+                      ? "white-bg"
+                      : "red-bg"
+                  }`}
+                >
+                  {ultimaUnidadTezotepec.numeroUnidad}
+                </button>
                 {penultimaUnidadTezotepec && (
                   <>
                     <button className="button-se-lleva-tezotepec">
@@ -1900,15 +2676,16 @@ const UnidadesComponent = () => {
             </td>
             {ultimaUnidadCalicapan && (
               <td className="celda-calicapan">
-                <CopyToClipboard text={formattedTextCalicapan}>
-        <button
-          className={`${
-            ultimaUnidadCalicapan.tipo === "blanco" ? "white-bg" : "red-bg"
-          }`}
-        >
-          {ultimaUnidadCalicapan.numeroUnidad}
-        </button>
-      </CopyToClipboard>
+                <button
+                  onClick={() => setMenuVisibleCalicapan(!menuVisibleCalicapan)}
+                  className={`${
+                    ultimaUnidadCalicapan.tipo === "blanco"
+                      ? "white-bg"
+                      : "red-bg"
+                  }`}
+                >
+                  {ultimaUnidadCalicapan.numeroUnidad}
+                </button>
                 {penultimaUnidadCalicapan && (
                   <>
                     <button className="button-se-lleva-calicapan">
@@ -1970,15 +2747,18 @@ const UnidadesComponent = () => {
             </td>
             {ultimaUnidadSosaEscuela && (
               <td className="celda-sosa">
-                <CopyToClipboard text={formattedTextSosaEscuela}>
-        <button
-          className={`${
-            ultimaUnidadSosaEscuela.tipo === "blanco" ? "white-bg" : "red-bg"
-          }`}
-        >
-          {ultimaUnidadSosaEscuela.numeroUnidad}
-        </button>
-      </CopyToClipboard>
+                <button
+                  onClick={() =>
+                    setMenuVisibleSosaEscuela(!menuVisibleSosaEscuela)
+                  }
+                  className={`${
+                    ultimaUnidadSosaEscuela.tipo === "blanco"
+                      ? "white-bg"
+                      : "red-bg"
+                  }`}
+                >
+                  {ultimaUnidadSosaEscuela.numeroUnidad}
+                </button>
                 {penultimaUnidadSosaEscuela && (
                   <>
                     <button className="button-se-lleva-sosa">
@@ -2040,15 +2820,16 @@ const UnidadesComponent = () => {
             </td>
             {ultimaUnidadSanIsidro && (
               <td className="celda-sanisidro">
-                <CopyToClipboard text={formattedTextSanIsidro}>
-        <button
-          className={`${
-            ultimaUnidadSanIsidro.tipo === "blanco" ? "white-bg" : "red-bg"
-          }`}
-        >
-          {ultimaUnidadSanIsidro.numeroUnidad}
-        </button>
-      </CopyToClipboard>
+                <button
+                  onClick={() => setMenuVisibleSanIsidro(!menuVisibleSanIsidro)}
+                  className={`${
+                    ultimaUnidadSanIsidro.tipo === "blanco"
+                      ? "white-bg"
+                      : "red-bg"
+                  }`}
+                >
+                  {ultimaUnidadSanIsidro.numeroUnidad}
+                </button>
                 {penultimaUnidadSanIsidro && (
                   <>
                     <button className="button-se-lleva-sanisidro">
@@ -2110,20 +2891,24 @@ const UnidadesComponent = () => {
             </td>
             {ultimaUnidadTacopan && (
               <td className="celda-tacopan">
-                <CopyToClipboard text={formattedTextTacopan}>
-        <button
-          className={`${
-            ultimaUnidadTacopan.tipo === "blanco" ? "white-bg" : "red-bg"
-          }`}
-        >
-          {ultimaUnidadTacopan.numeroUnidad}
-        </button>
-      </CopyToClipboard>
+                <CopyToClipboard text={formattedTextTacopanAlMomento}>
+                  <button
+                    className={`${
+                      ultimaUnidadTacopan.tipo === "blanco"
+                        ? "white-bg"
+                        : "red-bg"
+                    }`}
+                  >
+                    {ultimaUnidadTacopan.numeroUnidad}
+                  </button>
+                </CopyToClipboard>
                 {penultimaUnidadTacopan && (
                   <>
-                    <button className="button-se-lleva-tacopan">
-                      {formatoTiempo(diferenciaTacopan)}
-                    </button>
+                    <CopyToClipboard text={formattedTextTacopanTeLlevas}>
+                      <button className="button-se-lleva-tacopan">
+                        {formatoTiempo(diferenciaTacopan)}
+                      </button>
+                    </CopyToClipboard>
                     <button
                       className={`${
                         penultimaUnidadTacopan.tipo === "blanco"

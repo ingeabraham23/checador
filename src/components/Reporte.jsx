@@ -29,9 +29,14 @@ function TablaReporte() {
   const formatTime = (dateString) => {
     if (!dateString) return ""; // Verificar si el valor de entrada es null o undefined
     const date = new Date(dateString);
-    
+
     // Formatear la hora local en HH:mm:ss
-    const options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+    const options = {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false,
+    };
     return date.toLocaleTimeString([], options);
   };
 
@@ -50,10 +55,9 @@ function TablaReporte() {
   // Función para filtrar los datos por número de unidad y ruta
   const filtrarDatos = (reportes) => {
     return reportes.filter((reporte) => {
-
       const formattedHoraRegistro = formatTime(reporte.horaRegistro);
-    console.log(`Hora Registro Formateada: ${formattedHoraRegistro}`); // Verifica el formato
-    
+      console.log(`Hora Registro Formateada: ${formattedHoraRegistro}`); // Verifica el formato
+
       const numeroUnidadMatch =
         filtroNumeroUnidad === "" ||
         reporte.numeroUnidad.toString() === filtroNumeroUnidad;
@@ -247,9 +251,20 @@ function TablaReporte() {
   const handleGoToBottom = () => {
     window.scrollTo({
       top: document.body.scrollHeight,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
   };
+
+  // Función para formatear la fecha
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat('es-ES', {
+    weekday: 'long',
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  }).format(date);
+};
 
   return (
     <div>
@@ -293,6 +308,13 @@ function TablaReporte() {
           </div>
           <table ref={tableRef} className="tabla-reporte">
             <thead>
+              <tr className="fecha-encabezado">
+                <th colSpan={7} >
+                  {reportesFiltrados.length > 0
+                    ? formatDate(reportesFiltrados[0].horaRegistro)
+                    : "N/A"}
+                </th>
+              </tr>
               <tr>
                 <th></th>
                 <th>#</th>

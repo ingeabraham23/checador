@@ -14,7 +14,7 @@
     color: #000;
     padding: 3px;
     text-align: center;
-    font-size: 8px; /* Tamaño de fuente personalizado para los encabezados */
+    font-size: 14px; /* Tamaño de fuente personalizado para los encabezados */
   }
   
   /* Estilos para las celdas de datos (td) */
@@ -127,4 +127,9 @@
   
   .botones-flotantes button:last-child {
     margin-right: 0;
-  }  
+  }
+  
+  .fecha-encabezado{
+    font-size: 24px;
+    background-color: chartreuse;
+  }

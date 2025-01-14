@@ -62,6 +62,85 @@ body {
   font-weight: bold;
 }
 
+.amotac {
+  background-color: #ffffff; /* Cambia el color de fondo */
+  color: rgb(0, 0, 0); /* Cambia el color del texto */
+  padding: 10px; /* Aumenta el espacio alrededor del texto */
+  border: 1px solid #ff0000; /* Elimina el borde */
+  font-size: 25px;
+  border-radius: 5px; /* Agrega bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+  transition: background-color 0.3s ease; /* Agrega una transición */
+  font-weight: bold;
+}
+
+.al-momento {
+  background-color: lightblue;
+  color: rgb(0, 0, 0); /* Cambia el color del texto */
+  padding: 10px; /* Aumenta el espacio alrededor del texto */
+  border: 1px solid #000; /* Elimina el borde */
+  font-size: 25px;
+  border-radius: 5px; /* Agrega bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+  transition: background-color 0.3s ease; /* Agrega una transición */
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.esta-pasando {
+  background-color: lightcoral;
+  color: rgb(0, 0, 0); /* Cambia el color del texto */
+  padding: 10px; /* Aumenta el espacio alrededor del texto */
+  border: 1px solid #000; /* Elimina el borde */
+  font-size: 25px;
+  border-radius: 5px; /* Agrega bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+  transition: background-color 0.3s ease; /* Agrega una transición */
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.te-llevas {
+  background-color: lightgreen;
+  color: rgb(0, 0, 0); /* Cambia el color del texto */
+  padding: 10px; /* Aumenta el espacio alrededor del texto */
+  border: 1px solid #000; /* Elimina el borde */
+  font-size: 25px;
+  border-radius: 5px; /* Agrega bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+  transition: background-color 0.3s ease; /* Agrega una transición */
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.atras-de-ti {
+  background-color: lightyellow;
+  color: rgb(0, 0, 0); /* Cambia el color del texto */
+  padding: 10px; /* Aumenta el espacio alrededor del texto */
+  border: 1px solid #000; /* Elimina el borde */
+  font-size: 25px;
+  border-radius: 5px; /* Agrega bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+  transition: background-color 0.3s ease; /* Agrega una transición */
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.cerrar-copy-paste {
+  background-color: #ff0000;
+  color: rgb(255, 255, 255); /* Cambia el color del texto */
+  padding: 10px; /* Aumenta el espacio alrededor del texto */
+  border: 1px solid #000; /* Elimina el borde */
+  font-size: 25px;
+  border-radius: 5px; /* Agrega bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+  transition: background-color 0.3s ease; /* Agrega una transición */
+  margin-right: 5px;
+  margin-top: 25px;
+  font-weight: bold;
+  width: 200px;
+}
+
 .save-button-r3[disabled] {
   background-color: gray;
   cursor: not-allowed; /* Cambia el cursor al pasar sobre el botón deshabilitado */
